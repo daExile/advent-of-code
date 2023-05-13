@@ -1,0 +1,6 @@
+*.txt
+*.iml
+.idea/
+out/
+learn.lua
+stuff.kt
