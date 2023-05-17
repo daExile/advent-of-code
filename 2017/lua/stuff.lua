@@ -28,6 +28,11 @@ function stuff.tablemaxindex(t)
     end
     return k end
 
+function stuff.tablemax(t)
+    local max
+    for k, v in pairs(t) do if not max or v > max then max = v end end
+    return max end
+
 function stuff.tablesize(t)
     local size = 0
     for k, v in pairs(t) do size = size + 1 end
