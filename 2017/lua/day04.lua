@@ -1,7 +1,7 @@
 require("stuff")
 
 function strsort(str)
-    local t = stuff.str2chartable(str)
+    local t = stuff.str2alnumchartable(str)
     table.sort(t)
     return table.concat(t) end
 

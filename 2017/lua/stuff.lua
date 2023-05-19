@@ -11,7 +11,9 @@ function stuff.str2strtable(str) return stuff.str2table(str, "%w+") end
 
 function stuff.str2numtable(str) return stuff.str2table(str, "%d+") end
 
-function stuff.str2chartable(str) return stuff.str2table(str, "%w") end
+function stuff.str2alnumchartable(str) return stuff.str2table(str, "%w") end
+
+function stuff.str2anychartable(str) return stuff.str2table(str, ".") end
 
 function stuff.tableminmax(t)
     local min, max

@@ -1,6 +1,6 @@
 require("stuff")
 
-input = stuff.str2chartable(io.open("01.txt", "r"):read())
+input = stuff.str2alnumchartable(io.open("01.txt", "r"):read())
 len = #input
 
 checksum1, checksum2 = 0, 0
