@@ -1,4 +1,5 @@
-# Advent of Code - hobby coder's journey to { 50 * years } stars
+# Advent of Code
+## Hobby coder's journey to { 50 * years } stars
 
 Might contain trace amounts of decent code (but no promises).
 
