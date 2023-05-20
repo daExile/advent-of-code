@@ -22,14 +22,14 @@ Being done in Lua and Kotlin in parallel, learning the former from scratch and l
 ### Day 08 - I Heard You Like Registers
 Assembly puzzle :heart: This time it's rather simple processing, no loops involved, so we can go through it line by line and keep track of registers, only needs capturing all the args in a convenient way, and some sort of a switch for conditional checks.
 
-**Lua**: I opted for using a table of functions for makeshift `switch` here. I did try a six-store `if-then-elseif` construction instead, out of curiosity, the performance was very similar.
+**Lua**: I opted for using a table of functions for makeshift switch here. I did try a six-store `if-then-elseif` construction instead, out of curiosity, the performance was very similar.
 
 ### Day 09 - Stream Processing
 Regular expression day, brings back memories of doing stuff like this manually in Python for the first time :)
 
 Anyway, we're tasked with cleaning input stream of some garbage in two stages. First, getting rid of already cancelled symbols marked with `!`, then, garbage sequences enclosed in `<>`. While Kotlin uses just regular regex (doubly regular heh), Lua does its own take on patterns, but they turned out to be exact same for both.
 - `"!."` for searching for cancelled symbols, replacing the matches with empty strings.
-- `<[^>]*>` for garbage sequences, again, replacing with nothing.
+- `"<[^>]*>"` for garbage sequences, again, replacing with nothing.
 
 To calculate the answer (sum of individual group scores that match their level of "containment" in other groups), input cleanup result is iterated over its length. Since we know that all groups "are nicely formed", no need to check if anything's closed correctly, etc. Just two variables, one to keep track of group embed level (+1 on encountering `{`, -1 on `}`), other to accumulate group score (+group level on `{`).
 **Lua**: converting the input string into a table for parsing.
