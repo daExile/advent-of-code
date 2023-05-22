@@ -1,4 +1,4 @@
-# Advent of Code 2017 
+﻿# Advent of Code 2017 
 ### 22:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
@@ -57,7 +57,7 @@ Wouldn't be a difficult to spot problem, normally, but the check was done using 
 
 **Kotlin**: Now for something completely different, here we can use all built-in good stuff - init lists with a constructor; rotate the list to new starting point then flip its first N elements to avoid dealing with wrapping around entirely, while tracking current offset to rotate the list back to what should be 0 as starting index, once knot-hashing is done); and so on. `denseHash()` could use more scope function magic, but it's a bit too tricky for now.
 ### Day 11 - Hex Ed
-This is a hex grid traversal puzzle, which calls for some coordinate system setup. I chose a relatively lazy approach for now, to represent it as a skewed square grid with an extra degree of freedom, moving along one of diagonals is allowed, too. The choice of direction for x/y axis is arbitrary, for traversal itself it won't matter anyway. 
+This is a hex grid traversal puzzle, which calls for some coordinate system setup. I chose a relatively lazy approach for the first language (it was **Kotlin** today), to represent it as a skewed square grid with an extra degree of freedom, moving along one of diagonals is allowed, too. The choice of direction for x/y axis is arbitrary, for traversal itself it won't matter anyway. 
 ```
             Y
          \  ¦  /
@@ -76,7 +76,18 @@ This is a hex grid traversal puzzle, which calls for some coordinate system setu
           +---+
          /     \
 ```
-The next step is to map each step direction to its corresponding coordinate change, and we're ready to start at `(0, 0)` and iterate over our input, adding deltas for each step to get the final tile coordinates.
+The next step is to map each step direction to its corresponding coordinate change:
+```kotlin
+val move = mapOf(
+    "n" to Pair(0, 1),
+    "ne" to Pair(1, 0),
+    "se" to Pair(1, -1),
+    "s" to Pair(0, -1),
+    "sw" to Pair(-1, 0),
+    "nw" to Pair(-1, 1)
+)
+```
+And we're ready to start at `(0, 0)` and iterate over our input, adding deltas for each step to get the final tile coordinates.
 
 Now all that's left is to find the Manhattan distance to it on a hex grid...
 ```
@@ -99,5 +110,49 @@ Now all that's left is to find the Manhattan distance to it on a hex grid...
     +---+
 ```
 As you can see here, the twist is that in "quadrants" that don't match the allowed diagonal movement, the distance is the usual sum of coordinates' absolute values. Where it is allowed, we only need the maximum of the two. So, all needed here is a conditional check, whether the signs of two coordinates are same or n-nope.
-
+```kotlin
+fun hexManhattanDist(pos: Pair<Int, Int>): Int {
+    return if (pos.first.sign == pos.second.sign) {
+        abs(pos.first) + abs(pos.second)
+    } else max(abs(pos.first), abs(pos.second))
+}
+```
 Part 2 asks for a distance to the farthest from origin visited tile. No problem, all that's needed is to call the distance function for each step and keep track of its maximum.
+
+For the second language (**Lua**), I decided to do something that treats hex grid as, well, hex grid.
+```
+            A
+         \  ¦  /
+          +-¦-+  
+   \     /  ¦  \     /
+    +---+ 1,0,0 +---+
+   /     \  ¦  /     \
+ -+       +-¦-+    <----- this is a 1,1,0 tile. Or 0,0,-1 :)
+   \     /  ¦  \     /
+    +---+ 0,0,0 +---+
+   /     .'   `.     \
+ -+ 0,0,1 +---+ 0,1,0 +-
+   .'    /     \    `.
+C'  +---+       +---+  `B
+   /     \     /     \
+          +---+
+         /     \
+```
+```lua
+move = {n = {1, 0, 0},
+        ne = {0, 0, -1},
+        se = {0, 1, 0},
+        s = {-1, 0, 0},
+        sw = {0, 0, 1},
+        nw = {0, -1, 0}}
+```
+Strictly speaking, that wouldn't be a proper coordinate system, as each tile is not uniquely defined by a certain set of numbers. But sets of numbers are still unique to the tiles, and bringing the coordinates to `(n1 >= 0, n2 = 0, n3 <= 0)` form allows for easy Manhattan distance calculation.
+```lua
+function reduce(t)
+    local delta, r = getmid(t), {}
+    for i = 1, 3 do r[i] = t[i] - delta end
+    return r end
+
+function hexmd(t) return math.abs(t[1] - t[2] - t[3]) end
+```
+The rest of the code does pretty much the same as before - routinely adds each step's coordinate change and checks distance to origin.

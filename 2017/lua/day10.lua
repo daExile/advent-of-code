@@ -18,12 +18,12 @@ function knot(t, len)
     for i, v in ipairs(tmp) do
         local j = start + len - i
         if j > size then t[j - size] = tmp[i] else t[j] = tmp[i] end end
-    return t end
+end
 
 function knothash(t, input, rounds)
     for r = 1, rounds do
         for i, v in ipairs(input) do
-            t = knot(t, v)
+            knot(t, v)
             start = (start + skip + v - 1) % size + 1; skip = skip + 1
         end
     end
