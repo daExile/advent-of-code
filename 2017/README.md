@@ -1,5 +1,5 @@
 # Advent of Code 2017 
-### 20:star:
+### 22:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
 ### Day 01 - Inverse Captcha
@@ -56,3 +56,48 @@ function bitxor(a, b)
 Wouldn't be a difficult to spot problem, normally, but the check was done using the given example of `65 ^ 27 ^ 9 ^ 1 ^ 4 ^ 3 ^ 40 ^ 50 ^ 91 ^ 7 ^ 6 ^ 0 ^ 2 ^ 5 ^ 68 ^ 22 = 64`, for first two numbers and the whole thing, once the hashing function was also put in place. Just so happens that reverse bit order gives correct result for both of these inputs. Do more checks, will ya :)
 
 **Kotlin**: Now for something completely different, here we can use all built-in good stuff - init lists with a constructor; rotate the list to new starting point then flip its first N elements to avoid dealing with wrapping around entirely, while tracking current offset to rotate the list back to what should be 0 as starting index, once knot-hashing is done); and so on. `denseHash()` could use more scope function magic, but it's a bit too tricky for now.
+### Day 11 - Hex Ed
+This is a hex grid traversal puzzle, which calls for some coordinate system setup. I chose a relatively lazy approach for now, to represent it as a skewed square grid with an extra degree of freedom, moving along one of diagonals is allowed, too. The choice of direction for x/y axis is arbitrary, for traversal itself it won't matter anyway. 
+```
+            Y
+         \  ¦  /
+          +-¦-+  
+   \     /  ¦  \     /
+    +---+  0,1  +---+   X
+   /     \  ¦  /     .'
+ -+ -1,1  +-¦-+  1,0  +-
+   \     /  ¦  .'    /
+    +---+  0,0  +---+
+   /     \     /     \
+ -+ -1,0  +---+  1,-1 +-
+   \     /     \     /
+    +---+  0,-1 +---+
+   /     \     /     \
+          +---+
+         /     \
+```
+The next step is to map each step direction to its corresponding coordinate change, and we're ready to start at `(0, 0)` and iterate over our input, adding deltas for each step to get the final tile coordinates.
+
+Now all that's left is to find the Manhattan distance to it on a hex grid...
+```
+                +---+
+               / 0,2 \
+          +---+   o   +---+
+         -1,2  \  ¦  / 1,1 \
+    +---+   o   +-¦-+   o   +---+
+   /     \    `.  ¦  \  ¦  / 2,0 \
+ -2,2 o   +---+  `¦   +-¦-+   o   +
+   \    `.        ¦     ¦  .'    /
+    +---+  `.   +-¦-+   .'  +---+
+   /     \    `.  ¦  .'     
+ -2,1 o   +   +  `@'  +   +
+   \    `.     .'    /
+    +---+  `.'  +---+
+   /     .'  
+ -2,0 o'  +   +
+   \     /
+    +---+
+```
+As you can see here, the twist is that in "quadrants" that don't match the allowed diagonal movement, the distance is the usual sum of coordinates' absolute values. Where it is allowed, we only need the maximum of the two. So, all needed here is a conditional check, whether the signs of two coordinates are same or n-nope.
+
+Part 2 asks for a distance to the farthest from origin visited tile. No problem, all that's needed is to call the distance function for each step and keep track of its maximum.
