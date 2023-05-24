@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2017 
-### 22:star:
+### 24:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
 ### Day 01 - [Inverse Captcha](https://adventofcode.com/2017/day/1)
