@@ -7,19 +7,16 @@ require("stuff")
 
 move = {n = {1, 0, 0}, ne = {0, 0, -1}, se = {0, 1, 0}, s = {-1, 0, 0}, sw = {0, 0, 1}, nw = {0, -1, 0}}
 
-function getmid(t)
-    local tmp = {}
-    for i = 1, 3 do table.insert(tmp, t[i]) end
-    table.sort(tmp); return tmp[2] end
-
 function step(pos, dir)
     for i = 1, 3 do pos[i] = pos[i] + move[dir][i] end
     return pos end
 
 function reduce(t)
-    local delta, r = getmid(t), {}
-    for i = 1, 3 do r[i] = t[i] - delta end
-    return r end
+    local tmp = {}; for i = 1, 3 do table.insert(tmp, t[i]) end
+    table.sort(tmp); local delta = tmp[2]
+    
+    for i = 1, 3 do tmp[i] = t[i] - delta end
+    return tmp end
 
 function hexmd(t) return math.abs(t[1] - t[2] - t[3]) end
 
