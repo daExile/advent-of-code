@@ -12,7 +12,7 @@ fun main() {
     // i hope math gods won't smite me but i couldn't help these polar coords similarities
     val heheRadius = (a - 1) / 2
     val heheAngle = abs((input - (a - 2) * (a - 2)) % (heheRadius * 2) - heheRadius)
-    println("Part 1 answer: ${heheRadius + heheAngle}")
+    println("Part 1: ${heheRadius + heheAngle}")
     
     // ri-ight, let's setup the grid generator
     val grid = mutableMapOf<Pair<Int, Int>, Int>( Pair(0, 0) to 1 )
@@ -29,7 +29,7 @@ fun main() {
             }
         grid[newNode] = value
         if (!grid.containsKey(addPairs(newNode, turnLeft(direction)))) direction = turnLeft(direction)
-        println("$newNode: $value")
+        // println("$newNode: $value")
     } while (value <= input)
-    println("Part 2 answer: $value")
+    println("Part 2: $value")
 }

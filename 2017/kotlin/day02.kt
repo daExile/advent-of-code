@@ -21,6 +21,6 @@ fun main() {
         checksum2 += findPairAndDivide(list)
     }
     
-    println("Part 1 answer: $checksum1")
-    println("Part 2 answer: $checksum2")
+    println("Part 1: $checksum1")
+    println("Part 2: $checksum2")
 }

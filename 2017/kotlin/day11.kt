@@ -15,6 +15,6 @@ fun main() {
         with(hexManhattanDist(pos)) { if (maxDist < this) maxDist = this }
     }
     
-    println("Part 1 answer: ${hexManhattanDist(pos)}")
-    println("Part 1 answer: $maxDist")
+    println("Part 1: ${hexManhattanDist(pos)}")
+    println("Part 2: $maxDist")
 }

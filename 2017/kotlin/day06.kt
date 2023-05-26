@@ -15,6 +15,6 @@ fun main() {
         if (log[banks.toString()] == null) log[banks.toString()] = opCount else break
     }
     
-    println("Part 1 answer: $opCount")
-    println("Part 2 answer: ${opCount - log[banks.toString()]!!}")
+    println("Part 1: $opCount")
+    println("Part 2: ${opCount - log[banks.toString()]!!}")
 }

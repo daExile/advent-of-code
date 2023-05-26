@@ -7,10 +7,10 @@ fun main() {
     
     // part 1
     for (i in list.indices) if (list[i] == list[(i + 1) % list.size]) checksum += list[i]
-    println("Part 1 answer: $checksum")
+    println("Part 1: $checksum")
     
     // part 2
     checksum = 0
     for (i in list.indices) if (list[i] == list[(i + list.size / 2) % list.size]) checksum += list[i]
-    println("Part 2 answer: $checksum")
+    println("Part 2: $checksum")
 }

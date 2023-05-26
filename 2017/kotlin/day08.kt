@@ -21,6 +21,6 @@ fun main() {
         }
     }
     
-    println("Part 1 answer: ${registers.values.max()}")
-    println("Part 2 answer: $maxvalue")
+    println("Part 1: ${registers.values.max()}")
+    println("Part 2: $maxvalue")
 }

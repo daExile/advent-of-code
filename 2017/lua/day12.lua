@@ -12,12 +12,12 @@ for line in io.lines("12.txt") do
     pipes[tonumber(name)] = stuff.str2numtable(data)
 end
 
-for name, data in pairs(pipes) do
+for name, _ in pairs(pipes) do
     if not log[name] then
         local links = getlinks(name, {})
         table.insert(groups, links)
     end
 end
 
-print(string.format("Part 1 answer: %d", stuff.tablesize(groups[1])))
-print(string.format("Part 2 answer: %d", #groups))
+print(string.format("Part 1: %d", stuff.tablesize(groups[1])))
+print(string.format("Part 2: %d", #groups))

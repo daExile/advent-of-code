@@ -34,6 +34,6 @@ fun main() {
         }
     }
     
-    println("Part 1 answer: ${t.tower.keys.find {t.tower[it]!!.downLink == null }.also { t.findImbalance(it!!) }}")
-    println("Part 2 answer: ${t.unbalanced} should have a weight of ${t.tower[t.unbalanced]!!.weight + t.delta}")
+    println("Part 1: ${t.tower.keys.find {t.tower[it]!!.downLink == null }.also { t.findImbalance(it!!) }}")
+    println("Part 2: ${t.unbalanced} should have a weight of ${t.tower[t.unbalanced]!!.weight + t.delta}")
 }

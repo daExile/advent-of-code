@@ -12,6 +12,6 @@ fun main() {
         if (list.size == list.map { it.toList().sorted().toString() }.toSet().size) count2++
     }
     
-    println("Part 1 answer: $count1")
-    println("Part 2 answer: $count2")
+    println("Part 1: $count1")
+    println("Part 2: $count2")
 }

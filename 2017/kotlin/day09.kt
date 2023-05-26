@@ -10,6 +10,6 @@ fun main() {
             '}' -> groupLevel--
     }
     
-    println("Part 1 answer: $score")
-    println("Part 2 answer: ${almostRawInput.length - cleanInput.length}")
+    println("Part 1: $score")
+    println("Part 2: ${almostRawInput.length - cleanInput.length}")
 }

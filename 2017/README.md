@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2017 
-### 24:star:
+### 26:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
 ### Day 01 - [Inverse Captcha](https://adventofcode.com/2017/day/1)
@@ -174,7 +174,7 @@ After it's done its job, all we need is resulting `links` size.
 
 Now, part 2 is asking to find the number of isolated subgraphs in the whole thing. I went for collecting all subgraphs' data into `groups` table which will store `links` tables from each search, and added another table to track all IDs seen in searches. Now we can do the group search over the whole input data, skipping IDs that we already discovered a group for:
 ```lua
-for name, data in pairs(pipes) do
+for name, _ in pairs(pipes) do
     if not log[name] then
         local links = getlinks(name, {})
         table.insert(groups, links)
@@ -190,3 +190,37 @@ function getlinks(name, links)
     return links end
 ```
 And the answer is the size of `groups`. Could do a simple count, instead, but with all group data, part 1 solution is incorporated in it, too, we simply print the size of first group in `groups` as its search starts with node `0`.
+
+For **Kotlin** I made some pretty lazy Graph class implementation, for now only with things required to solve this day (and a BFS search instead, for a change). I totally expect it to be useful (and needing updates / enhancements) at some point later on, for a route-searching puzzle. We'll see. Nothing to write home about, otherwise.
+### Day 13 - [Packet Scanners](https://adventofcode.com/2017/day/13)
+Here we have a firewall setup for an input, a list of `depths` (a distance to each scanner in the structure) and matching `ranges` (a scanner's route length). The scanners all start at position `0` and move one step at a time until the end of their routes, then go back in the same manner, while we're moving at the same pace across the "firewall" at level `0`. Parsing this into some structure...
+```kotlin
+class SecurityScanner(val depth: Int, val range: Int)
+```
+```kotlin
+val firewall = File("13.txt").readLines()
+    .map { line -> line.split(": ").map { it.toInt() } }
+    .map { SecurityScanner(it[0], it[1]) }
+```
+I added this after getting the answers for the first time, though, because parsing input in a loop turned out to bee bad idea, surprise, surprise. Anyway! Part 1, basically, asks to find which scanners would spot us if we'd move out immediately, and answer with sum of those scanners' `depth * range`. As scanners take `period = 2 * (range - 1)` steps to do a full rotation, we can take `depth mod period` and compare to `0` to see if we'll be spotted.
+```kotlin
+var severity = 0
+for (layer in firewall) {
+    severity += if (layer.depth % (2 * (layer.range - 1)) == 0) layer.depth * layer.range else 0
+}
+```
+Second part of the puzzle is the search for such a starting delay that would allow us to cross the firewall without being caught at all. Normally this would call for using math to cut corners, but I didn't see any clear cut to it. Other [similarly](https://adventofcode.com/2016/day/15) [looking](https://adventofcode.com/2020/day/13) puzzles in AoC asked us to do the opposite, the equivalent of getting caught by every single scanner, but that approach won't work here (there is number of scanners with matching ranges, but placed at distances not matching their period, see `4` and `6` in provided example), and even if it would, no way to tell if the solution was optimal (and quite likely it wasn't).
+
+So I opted for an outright iteration this time (it gets the answer pretty fast anyway, after optimising the code a little bit). At first I reused the severity score function for the search, but the result was too low - ri-ight, first firewall layer has a score of `0` regardless of getting caught or not. The second attempt uses a boolean instead:
+```kotlin
+var delay = 0
+do {
+    var caught = false
+    delay++
+    for (layer in firewall) {
+        caught = (delay + layer.depth) % (2 * (layer.range - 1)) == 0
+        if (caught) break
+    }
+} while (caught)
+```
+Skipping to next value as soon as we're caught is one obvious shortcut, another was stopping being silly and making some data structure to store input data instead of parsing it every round (yup, at first it was like that, and about 20x slower). For this particular solution, I reckon there are ways to make it faster and / or shorter with more Kotlin-ising, saving period value as another property, grouping scanners by their period and reducing maximum number of checks per delay. Gonna try that later if I don't come up with some better algorithm altogether.
