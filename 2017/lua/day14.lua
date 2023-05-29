@@ -1,5 +1,4 @@
 stuff = require("stuff")
-khash = require("aoc_2017")
 
 neighbour_deltas = {{x = 1, y = 0}, {x = 0, y = 1}, {x = -1, y = 0}, {x = 0, y = -1}}
 function markregion(i, j)
@@ -20,7 +19,7 @@ for i = 0, 127 do
     for _, v in ipairs({17, 31, 73, 47, 23}) do table.insert(key, v) end -- add standard ending
     
     start, skip = 1, 0
-    table.insert(map, stuff.str2anychartable(khash.densehash(khash.knothash(khash.init(), key, 64), bin)))
+    table.insert(map, stuff.str2anychartable(stuff.densehash(stuff.knothash(stuff.init(), key, 64), bin)))
 end
 
 count = 0

@@ -1,5 +1,4 @@
 stuff = require("stuff")
-khash = require("aoc_2017")
 
 input = io.input("10.txt"):read(); io.close()
 
@@ -11,9 +10,9 @@ for _, v in ipairs({17, 31, 73, 47, 23}) do table.insert(p2data, v) end -- add s
 size = 256
 
 -- part 1
-t = khash.knothash(khash.init(), p1data, 1)
+t = stuff.knothash(stuff.init(), p1data, 1)
 print(string.format("Part 1: %d", t[1] * t[2]))
 
 -- part 2
-t = khash.knothash(khash.init(), p2data, 64)
-print(string.format("Part 2: %s", khash.densehash(t, hex)))
+t = stuff.knothash(stuff.init(), p2data, 64)
+print(string.format("Part 2: %s", stuff.densehash(t, hex)))
