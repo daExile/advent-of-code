@@ -12,12 +12,12 @@ fun knotHash(list: List<Int>, input: List<Int>, rounds: Int): List<Int> {
     return rotateList(hashedList, -pos)
 }
 
-fun denseHash(sparseHash: List<Int>): String {
+fun denseHash(sparseHash: List<Int>, format: (Int) -> String = { it -> String.format("%02x", it) }): String {
     var hash = ""
     for (i in sparseHash.chunked(16)) {
         var t = 0
         for (j in i) t = t.xor(j)
-        hash += String.format("%02x", t)
+        hash += format(t)
     }
     return hash
 }

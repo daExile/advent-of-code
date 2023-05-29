@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 function towercheck(name)
     local total, held = weights[name], {}

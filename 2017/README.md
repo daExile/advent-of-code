@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2017 
-### 26:star:
+### 30:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
 ### Day 01 - [Inverse Captcha](https://adventofcode.com/2017/day/1)
@@ -202,7 +202,7 @@ val firewall = File("13.txt").readLines()
     .map { line -> line.split(": ").map { it.toInt() } }
     .map { SecurityScanner(it[0], it[1]) }
 ```
-I added this after getting the answers for the first time, though, because parsing input in a loop turned out to bee bad idea, surprise, surprise. Anyway! Part 1, basically, asks to find which scanners would spot us if we'd move out immediately, and answer with sum of those scanners' `depth * range`. As scanners take `period = 2 * (range - 1)` steps to do a full rotation, we can take `depth mod period` and compare to `0` to see if we'll be spotted.
+I added this after getting the answers for the first time, though, because parsing input in a loop turned out to be bad idea, surprise, surprise. Anyway! Part 1, basically, asks to find which scanners would spot us if we'd move out immediately, and answer with sum of those scanners' `depth * range`. As scanners take `period = 2 * (range - 1)` steps to do a full rotation, we can take `depth mod period` and compare to `0` to see if we'll be spotted.
 ```kotlin
 var severity = 0
 for (layer in firewall) {
@@ -224,3 +224,7 @@ do {
 } while (caught)
 ```
 Skipping to next value as soon as we're caught is one obvious shortcut, another was stopping being silly and making some data structure to store input data instead of parsing it every round (yup, at first it was like that, and about 20x slower). For this particular solution, I reckon there are ways to make it faster and / or shorter with more Kotlin-ising, saving period value as another property, grouping scanners by their period and reducing maximum number of checks per delay. Gonna try that later if I don't come up with some better algorithm altogether.
+### Day 14 - [Disk Defragmentation](https://adventofcode.com/2017/day/14)
+...proper writeup attempt later, just the code for now.
+### Day 15 - [Dueling Generators](https://adventofcode.com/2017/day/15)
+...same as above but only **Kotlin** done.

@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 ops = { ["<"] = function(r, n) return regs[r] < n end,
         [">"] = function(r, n) return regs[r] > n end,

@@ -1,4 +1,4 @@
-module("stuff", package.seeall)
+local stuff = {}
 
 function stuff.str2table(str, pattern)
     local t = {}
@@ -39,3 +39,5 @@ function stuff.tablesize(t)
     local size = 0
     for k, v in pairs(t) do size = size + 1 end
     return size end
+    
+return stuff

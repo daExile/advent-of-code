@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 input = stuff.str2alnumchartable(io.open("01.txt", "r"):read())
 len = #input

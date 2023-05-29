@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 function getlinks(name, links)
     links[name] = true; log[name] = true

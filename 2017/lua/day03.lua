@@ -22,8 +22,7 @@ function nextnode(node, dir)
     else return newnode, dir end
 end
 
-print("Puzzle input is...")
-input = io.read("*n")
+input = tonumber(io.open("03.txt", "r"):read())
 
 -- part 1, instead of fancy math let's generate the grid for practice
 grid = {}

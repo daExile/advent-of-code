@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 input_with_cancels = string.gsub((io.open("09.txt", "r"):read()), "!.", "")
 input_no_garbo = stuff.str2anychartable(string.gsub(input_with_cancels, "<[^>]*>", "<>"))

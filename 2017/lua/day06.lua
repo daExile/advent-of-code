@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 function redistribute(k)
     bank, banks[k] = banks[k], 0

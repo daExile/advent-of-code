@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 function strsort(str)
     local t = stuff.str2alnumchartable(str)
@@ -19,6 +19,5 @@ for line in io.lines("04.txt") do
     if stuff.tablesize(t2) == #words then c_valid2 = c_valid2 + 1 end
 end
 
---print("Total passphrases:", c_all)
 print(string.format("Part 1: %d", c_valid1))
 print(string.format("Part 2: %d", c_valid2))

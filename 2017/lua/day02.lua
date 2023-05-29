@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 function findanddivide(t)
     for i = 1, #t - 1 do

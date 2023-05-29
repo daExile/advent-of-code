@@ -1,4 +1,4 @@
-require("stuff")
+stuff = require("stuff")
 
 --[[    a       a.         _        let's invent hexagonal wheel for fun!
         |       |  `b =   .c    <-- axis are set such as (1, 0, 0) + (0, 1, 0) = (0, 0, -1), and so on
