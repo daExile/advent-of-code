@@ -10,7 +10,7 @@ function markregion(i, j)
     end
 end
 
-input = io.input("14.txt"):read(); io.close() 
+input = io.input("14.txt"):read(); io.close()
 
 map, size = {}, 256
 for i = 0, 127 do
@@ -18,7 +18,6 @@ for i = 0, 127 do
     for _, v in ipairs(stuff.str2anychartable(input.."-"..i)) do table.insert(key, string.byte(v)) end
     for _, v in ipairs({17, 31, 73, 47, 23}) do table.insert(key, v) end -- add standard ending
     
-    start, skip = 1, 0
     table.insert(map, stuff.str2anychartable(stuff.densehash(stuff.knothash(stuff.init(), key, 64), bin)))
 end
 

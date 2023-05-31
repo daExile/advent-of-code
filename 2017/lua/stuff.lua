@@ -51,13 +51,13 @@ function stuff.init()
     for i = 0, size - 1 do s = s..string.char(i) end
     return s end
     
+    -- hashing itself
 function rotate(s, n)
     n = n % size
     return string.sub(s, n + 1)..string.sub(s, 1, n) end
 
 function reverse_n(s, n) return string.sub(s, 1, n):reverse()..string.sub(s, n + 1) end
 
-    -- hashing itself
 function stuff.knothash(s, input, rounds)
     offset, skip = 0, 0
     for r = 1, rounds do

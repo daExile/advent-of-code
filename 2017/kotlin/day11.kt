@@ -11,7 +11,7 @@ fun main() {
     var maxDist = 0
     
     for (step in steps) {
-        pos = Pair(pos.first + move[step]!!.first, pos.second + move[step]!!.second)
+        pos += move[step]!!
         with(hexManhattanDist(pos)) { if (maxDist < this) maxDist = this }
     }
     

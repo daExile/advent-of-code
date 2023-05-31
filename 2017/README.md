@@ -2,7 +2,10 @@
 ### 30:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 ## Thoughts on...
-### Day 01 - [Inverse Captcha](https://adventofcode.com/2017/day/1)
+```
+TODO( write [more of] something mildly interesting on days 01-10 )
+```
+## Day 01 - [Inverse Captcha](https://adventofcode.com/2017/day/1)
 - **Kotlin**
   - Simply parsing the input into a list of Int, and then comparing them by given rules. For fun I wanted to create custom List variant that would loop on its own, without doing `% list.size`, but seems like I don't have the knowledge for it yet.
 - **Lua**
@@ -11,7 +14,7 @@ Being done in Lua and Kotlin in parallel, learning the former from scratch and l
 
 ### ...
 
-### Day 07 - [Recursive Circus](https://adventofcode.com/2017/day/7)
+## Day 07 - [Recursive Circus](https://adventofcode.com/2017/day/7)
 - **Kotlin**
   - Part 1 comes down to parsing input into some structure and then finding the only entry in it that doesn't have an underlying "program". Part 2, well, slightly more complicated, I kept adding "features" to the data structure and working with them in what seems to be a really clumsy way. But it worked, onwards to Lua, hoping to coming up with much better ideas there.
 - **Lua**
@@ -19,12 +22,12 @@ Being done in Lua and Kotlin in parallel, learning the former from scratch and l
 - **Kotlin**
   - Ported Lua code for unbalanced "floor" search, pretty much, looks somewhat better to me now.
 
-### Day 08 - [I Heard You Like Registers](https://adventofcode.com/2017/day/8)
+## Day 08 - [I Heard You Like Registers](https://adventofcode.com/2017/day/8)
 Assembly puzzle :heart: This time it's rather simple processing, no loops involved, so we can go through it line by line and keep track of registers, only needs capturing all the args in a convenient way, and some sort of a switch for conditional checks.
 
 **Lua**: I opted for using a table of functions for makeshift switch here. I did try a six-store `if-then-elseif` construction instead, out of curiosity, the performance was very similar.
 
-### Day 09 - [Stream Processing](https://adventofcode.com/2017/day/9)
+## Day 09 - [Stream Processing](https://adventofcode.com/2017/day/9)
 Regular expression day, brings back memories of doing stuff like this manually in Python for the first time :)
 
 Anyway, we're tasked with cleaning input stream of some garbage in two stages. First, getting rid of already cancelled symbols marked with `!`, then, garbage sequences enclosed in `<>`. While Kotlin uses just regular regex (doubly regular heh), Lua does its own take on patterns, but they turned out to be exact same for both.
@@ -37,7 +40,7 @@ To calculate the answer (sum of individual group scores that match their level o
 Part 2 asks to find out how much garbage was dumped out at the second cleanup stage... without its marker `<>` brackets. So, gotta go back and adjust the second filter to keep those intact (replace sequences with `"<>"` instead of empty strings), and find the diff in input size before and after this step.
 
 ...But this is again linear stuff, should give parsing the stream manually a try, too, and compare performance.
-### Day 10 - [Knot Hash](https://adventofcode.com/2017/day/10)
+## Day 10 - [Knot Hash](https://adventofcode.com/2017/day/10)
 The task this time is to take a list of numbers from 0 to 255 and transform it repeatedly - namely, reverse lengthy parts of it, according to input data. The list also wraps around.
 
 **Lua**: I went with simply copying the needed part into a proxy table and putting it back in reverse. Since it's done one by one element, wrapping around the table is easily done with `index % size` (with some extras for indexing from 1). Guess it could be done in another way (using some sort of a linked list structure?), but outright table manipulation was easier to code, and in this case works fast enough.
@@ -56,7 +59,7 @@ function bitxor(a, b)
 Wouldn't be a difficult to spot problem, normally, but the check was done using the given example of `65 ^ 27 ^ 9 ^ 1 ^ 4 ^ 3 ^ 40 ^ 50 ^ 91 ^ 7 ^ 6 ^ 0 ^ 2 ^ 5 ^ 68 ^ 22 = 64`, for first two numbers and the whole thing, once the hashing function was also put in place. Just so happens that reverse bit order gives correct result for both of these inputs. Do more checks, will ya :)
 
 **Kotlin**: Now for something completely different, here we can use all built-in good stuff - init lists with a constructor; rotate the list to new starting point then flip its first N elements to avoid dealing with wrapping around entirely, while tracking current offset to rotate the list back to what should be 0 as starting index, once knot-hashing is done); and so on. `denseHash()` could use more scope function magic, but it's a bit too tricky for now.
-### Day 11 - [Hex Ed](https://adventofcode.com/2017/day/11)
+## Day 11 - [Hex Ed](https://adventofcode.com/2017/day/11)
 This is a hex grid traversal puzzle, which calls for some coordinate system setup. I chose a relatively lazy approach for the first language (it was **Kotlin** today), to represent it as a skewed square grid with an extra degree of freedom, moving along one of diagonals is allowed, too. The choice of direction for x/y axis is arbitrary, for traversal itself it won't matter anyway. 
 ```
             Y
@@ -158,7 +161,7 @@ function reduce(t)
 function hexmd(t) return math.abs(t[1] - t[2] - t[3]) end
 ```
 The rest of the code does pretty much the same as before - routinely adds each step's coordinate change and checks distance to origin.
-### Day 12 - [Digital Plumber](https://adventofcode.com/2017/day/12)
+## Day 12 - [Digital Plumber](https://adventofcode.com/2017/day/12)
 A graphs problem, where we're given a list of nodes and their links, and need to find the number of nodes in a subgraph containing node `0`. So far, however, it looks like implementing a graph structure isn't required.
 
 **Lua**: I'm using two global tables, `pipes` to store input data, and `links` as a set of nodes that are already accounted for. We're doing depth-first search for connected nodes using a recursive function, that reads linked IDs from `pipes[ID]` and calls itself to read their links, skips those already in the list and adds those that aren't:
@@ -192,7 +195,7 @@ function getlinks(name, links)
 And the answer is the size of `groups`. Could do a simple count, instead, but with all group data, part 1 solution is incorporated in it, too, we simply print the size of first group in `groups` as its search starts with node `0`.
 
 For **Kotlin** I made some pretty lazy Graph class implementation, for now only with things required to solve this day (and a BFS search instead, for a change). I totally expect it to be useful (and needing updates / enhancements) at some point later on, for a route-searching puzzle. We'll see. Nothing to write home about, otherwise.
-### Day 13 - [Packet Scanners](https://adventofcode.com/2017/day/13)
+## Day 13 - [Packet Scanners](https://adventofcode.com/2017/day/13)
 Here we have a firewall setup for an input, a list of `depths` (a distance to each scanner in the structure) and matching `ranges` (a scanner's route length). The scanners all start at position `0` and move one step at a time until the end of their routes, then go back in the same manner, while we're moving at the same pace across the "firewall" at level `0`. Parsing this into some structure...
 ```kotlin
 class SecurityScanner(val depth: Int, val range: Int)
@@ -224,7 +227,72 @@ do {
 } while (caught)
 ```
 Skipping to next value as soon as we're caught is one obvious shortcut, another was stopping being silly and making some data structure to store input data instead of parsing it every round (yup, at first it was like that, and about 20x slower). For this particular solution, I reckon there are ways to make it faster and / or shorter with more Kotlin-ising, saving period value as another property, grouping scanners by their period and reducing maximum number of checks per delay. Gonna try that later if I don't come up with some better algorithm altogether.
-### Day 14 - [Disk Defragmentation](https://adventofcode.com/2017/day/14)
+## Day 14 - [Disk Defragmentation](https://adventofcode.com/2017/day/14)
+Knot hashing from day 10 is back! We're using its part 2 algorithm to build a 128x128 bitmap, for which a couple new things are needed. One is simple, to provide keys for hashing in form of `input string + '-' + row number`, and do it for 128 rows.
+```lua
+map = {}
+for i = 0, 127 do
+    local key = {}
+    for _, v in ipairs(stuff.str2anychartable(input.."-"..i)) do table.insert(key, string.byte(v)) end
+    for _, v in ipairs({17, 31, 73, 47, 23}) do table.insert(key, v) end
+    
+    table.insert(map, stuff.str2anychartable(stuff.densehash(stuff.knothash(stuff.init(), key, 64), bin)))
+end
+```
+```kotlin
+val map = List(128) {
+    i -> denseHash(knotHash(List(256) { j -> j }, ("$input-$i").map { it.code } + listOf(17, 31, 73, 47, 23), 64), ::toBinaryString)
+}
+```
+**Lua** and **Kotlin** ways. Second, to get a bitmap, we need a binary representation of the result instead of hex... yeah, **Lua** doesn't seem to have it so I had to invent some mediocre function for it:
+```lua
+function bin(n)
+    local str = ""
+    for i = 0, 7 do str, n = str..n % 2, math.floor(n / 2) end
+    return string.reverse(str) end
+```
+Room for improvement, but again, it was fast enough for the purpose. In **Kotlin** I made a function for it, too, could have put it directly into the `denseHash()` call but it was getting crowded already :)
+```kotlin
+fun toBinaryString(n: Int) = n.toString(2).padStart(8, '0')
+```
+If we need more decimal to binary conversions further down the road, I'll likely update both to handle numbers of bits different from 8.
+
+Part 1 asks to count the total of `1`s in the final map. For **Kotlin**, I added `.also { count1s += it.count { it == '1' } }` to `denseHash()` call, for **Lua** I used pattern matching to get each row's length with all `0`s removed:
+```lua
+for _, row in ipairs(map) do count = count + #string.gsub(table.concat(row), "0", "") end
+```
+The task for part 2 is to count regions the `1`s form on our generated map. For this, I repurposed some chunks of day 12 code, changing it from just reading the data for all connected nodes to neighbours check. Both solutions are using the same approach they did in day 12. Recursive function called for each not encountered yet `1` on a map for **Lua**...
+```lua
+neighbour_deltas = {{x = 1, y = 0}, {x = 0, y = 1}, {x = -1, y = 0}, {x = 0, y = -1}}
+function markregion(i, j)
+    checked[i.." "..j] = true
+    for _, n in ipairs(neighbour_deltas) do
+        if map[i + n.x] and map[i + n.x][j + n.y] == "1" and not checked[i + n.x.." "..j + n.y] then
+            markregion(i + n.x, j + n.y)
+        end
+    end
+end
+
+checked, count = {}, 0
+for i, row in ipairs(map) do
+    for j, tile in ipairs(row) do
+        if not checked[i.." "..j] and tile == "1" then
+            count = count + 1
+            markregion(i, j)
+        end
+    end
+end
+```
+**Kotlin** in turn got its BFS approach, but honestly I'm not happy enough with it to put it here in [this](https://github.com/daExile/advent-of-code/blob/main/2017/kotlin/day14.kt) clunky state. It works, though.
+### Background
+As this marks the first time one day refers to solution of another, I moved those code chunks to "helper libraries". **Kotlin** happily picks contents from any file in the project as is, I moved all hashing functions for clarity anyway, and the little `Pair<Int, Int>`-adding convenience bit, too.
+```kotlin
+operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = Pair(this.first + other.first, this.second + other.second)
+```
+...and added a format parameter to the `denseHash()`.
+
+In **Lua**, old table manipulation approach was taking almost a whole second to find day 14 solution (after all, we're doing 128 times the work of day 10), which felt too slow. I decided to try something else - well, namely use **Kotlin** solution ideas but with strings instead of lists / tables, as Lua 5.1 doesn't yet have `table.move()`, and the result turned out to be about twice as fast. Seems that however fast working with tables is, the sheer number of operations outweighs it here.
+
+All the new functions are in [stuff.lua](https://github.com/daExile/advent-of-code/blob/main/2017/lua/stuff.lua), old code is in [day10's history](https://github.com/daExile/advent-of-code/blob/f86fcd49a1054f1e16f67b64723ac888f1e6b891/2017/lua/day10.lua) because I had to make an indecisive mess while moving functions around.
+## Day 15 - [Dueling Generators](https://adventofcode.com/2017/day/15)
 ...proper writeup attempt later, just the code for now.
-### Day 15 - [Dueling Generators](https://adventofcode.com/2017/day/15)
-...same as above but only **Kotlin** done.

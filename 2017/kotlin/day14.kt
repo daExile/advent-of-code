@@ -1,10 +1,7 @@
 import java.io.File
 
-operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = Pair(this.first + other.first, this.second + other.second)
-
 fun toBinaryString(n: Int) = n.toString(2).padStart(8, '0')
 
-// all the hashing functions are being loaded from day10.kt
 fun main() {
     val input = File("14.txt").readText()
     var count1s = 0
