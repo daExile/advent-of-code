@@ -6,6 +6,8 @@ function Generator:new(f)
     self.__index = self
     return setmetatable(newobj, self) end
 
+function Generator:set(n) self.value = n end
+
 function Generator:nextvalue()
     self.value = (self.value * self.factor) % 2147483647
     return self.value end
@@ -14,10 +16,8 @@ function Generator:nextmultiple(m)
     repeat self:nextvalue() until self.value % m == 0
     return self.value end
 
-function Generator:set(n) self.value = n end
-
-A = Generator:new(16807); 
-B = Generator:new(48271);
+A = Generator:new(16807)
+B = Generator:new(48271)
 
 starters = {}
 for line in io.lines("15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end

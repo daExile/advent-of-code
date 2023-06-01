@@ -1,6 +1,10 @@
 ﻿# Advent of Code 2017 
 ### 30:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
+
+For the reference:
+- **Kotlin**: latest stable 1.8.x with IntelliJ IDEA.
+- **Lua**: 5.1 with ZeroBrane Studio (apparently uses LuaJIT as interpreter for it by default, absolutely grand).
 ## Thoughts on...
 ```
 TODO( write [more of] something mildly interesting on days 01-10 )
@@ -261,7 +265,7 @@ Part 1 asks to count the total of `1`s in the final map. For **Kotlin**, I added
 ```lua
 for _, row in ipairs(map) do count = count + #string.gsub(table.concat(row), "0", "") end
 ```
-The task for part 2 is to count regions the `1`s form on our generated map. For this, I repurposed some chunks of day 12 code, changing it from just reading the data for all connected nodes to neighbours check. Both solutions are using the same approach they did in day 12. Recursive function called for each not encountered yet `1` on a map for **Lua**...
+The task for part 2 is to count regions the `1`s form on our generated map. For this, I repurposed some chunks of day 12 code, changing it from just reading the data for all connected nodes to neighbours check. Both solutions are using the same approach they did in day 12. In **Lua**, we iterate over all rows and tiles in row, adding 1 to the `count` and calling a recursive function called for each not encountered yet `1`...
 ```lua
 neighbour_deltas = {{x = 1, y = 0}, {x = 0, y = 1}, {x = -1, y = 0}, {x = 0, y = -1}}
 function markregion(i, j)
@@ -283,6 +287,8 @@ for i, row in ipairs(map) do
     end
 end
 ```
+...then it's immediately marked as checked, and all its direct neighbours are inspected as well, until a region is done. **Lua** conveniently returns `nil` for all non-existent, out-of-bounds indices. I suppose it could have been done by changing map elements already accounted for, from `1` to something else, and without using a second table.
+
 **Kotlin** in turn got its BFS approach, but honestly I'm not happy enough with it to put it here in [this](https://github.com/daExile/advent-of-code/blob/main/2017/kotlin/day14.kt) clunky state. It works, though.
 ### Background
 As this marks the first time one day refers to solution of another, I moved those code chunks to "helper libraries". **Kotlin** happily picks contents from any file in the project as is, I moved all hashing functions for clarity anyway, and the little `Pair<Int, Int>`-adding convenience bit, too.
@@ -295,4 +301,104 @@ In **Lua**, old table manipulation approach was taking almost a whole second to 
 
 All the new functions are in [stuff.lua](https://github.com/daExile/advent-of-code/blob/main/2017/lua/stuff.lua), old code is in [day10's history](https://github.com/daExile/advent-of-code/blob/f86fcd49a1054f1e16f67b64723ac888f1e6b891/2017/lua/day10.lua) because I had to make an indecisive mess while moving functions around.
 ## Day 15 - [Dueling Generators](https://adventofcode.com/2017/day/15)
-...proper writeup attempt later, just the code for now.
+A number generator problem. We're given a pair of starting numbers and a simple rule to generate next pairs (multiply by one value and take a `result mod another_value`), and we have to count how many pairs have matching 16 lowest bits in them. Let's set up the generators first. In **Kotlin**...
+```kotlin
+class Generator(private val factor: Int) {
+    private var value: Long = 0
+    
+    fun setValue(newValue: Long) {
+        value = newValue
+    }
+    
+    fun nextValue() = ((value * factor) % 2147483647).also { value = it }
+}
+```
+... and in **Lua** (I took this puzzle as an opportunity to try Lua's table-powered OOP, credit for help to get started goes to Learn X in Y minutes, whose [code](https://learnxinyminutes.com/docs/lua/) I adjusted for my needs here).
+```lua
+Generator = {}
+
+function Generator:new(f)
+    newobj = {factor = f; value = 0}
+    self.__index = self
+    return setmetatable(newobj, self) end
+
+function Generator:set(n) self.value = n end
+
+function Generator:nextvalue()
+    self.value = (self.value * self.factor) % 2147483647
+    return self.value end
+```
+Not shown: first implementations with set-once starting values, `set()` functions were added upon seeing part 2 task which needs us to start over.
+
+Anyway, now we need to initialise generators with our given static `factor` numbers, and read starting values from input.
+```kotlin
+val A = Generator(16807)
+val B = Generator(48271)
+val (a0, b0) = File("15.txt").readLines().map { Regex("""(\d+)""").find(it)!!.value.toLong() }
+```
+```lua
+A = Generator:new(16807)
+B = Generator:new(48271)
+
+starters = {}
+for line in io.lines("15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end
+```
+The difference is pretty much down to syntax now. Yeah, and reading input is done a bit differently. Could also easily get away with just taking the end bit of each line, starting from 25th symbol. Finally, we're ready to run all the forty million rounds of generating numbers and count matching endings. I'm using `mod 65536` to extract those lowest 16 bits. Couldn't find any reasonable alternative to it in pure **Lua 5.1**. I did try using `toShort()` in **Kotlin** but there was no noticeable difference. Should try bitwise operations next, at some point.
+```kotlin
+var count = 0
+A.setValue(a0); B.setValue(b0)
+for (i in 1..40000000) if (A.nextValue() % 65536 == B.nextValue() % 65536) count++
+```
+```lua
+count = 0
+A:set(starters[1]); B:set(starters[2])
+for a = 1, 40000000 do if (A:nextvalue() - B:nextvalue()) % 65536 == 0 then count = count + 1 end end
+```
+Again, it's nearly identical, with a little optimisation for **Lua**.
+
+For part 2 we're asked to provide multiples of `4` or `8` for each comparison instead of just the next pair of numbers. Alright, let's add a function that will repeat the process until it gets desired result...
+```kotlin
+class Generator(private val factor: Int) {
+    // ...
+    fun nextValueMultiple(n: Int): Long {
+        var candidate: Long
+        do candidate = nextValue() while (candidate % n != 0L)
+        return candidate
+    }
+}
+```
+```lua
+function Generator:nextmultiple(m)
+    repeat self:nextvalue() until self.value % m == 0
+    return self.value end
+```
+...reset generators and counters, and then do more number crunching (only five million rounds this time):
+```kotlin
+var count = 0
+A.setValue(a0); B.setValue(b0)
+for (i in 1..5000000) if (A.nextValueMultiple(4) % 65536 == B.nextValueMultiple(8) % 65536) count++
+```
+```lua
+count = 0
+A:set(starters[1]); B:set(starters[2])
+for a = 1, 5000000 do if (A:nextmultiple(4) - B:nextmultiple(8)) % 65536 == 0 then count = count + 1 end end
+```
+### Faster?
+While **Kotlin**'s rather lazy code solves the puzzle "fast enough", **Lua**'s was taking almost 1.6s to complete, which was, well, longer than I hoped for. So, unfortunately, I had to sacrifice my "class" implementation for the sake of performance. Replacing it with just two variables and a set of functions took runtime down to 1.35s:
+```lua
+function new(x, n) x = (x * n) % 2147483647; return x end
+
+function new_mult(x, m, n) repeat x = new(x, n) until x % m == 0; return x end
+-- ...
+count = 0
+
+a, b = starters[1], starters[2]
+for i = 1, 40000000 do
+    a, b = new(a, 16807), new(b, 48271)
+    if (a - b) % 65536 == 0 then count = count + 1 end
+end
+-- ... part 2 loop omitted, it simply uses new_mult() instead
+```
+It could be improved further to about 1.3s with abandoning functions completely and performing all math in the loop, but that improvement wasn't as good, so I kept this somewhat nicely structured version as final (and uploaded the one with `Generator` class separately).
+
+Out of curiosity I tried to use strings to compare last digits, as some terrible makeshift `int16` cast, solution runtime went up to over a minute :D Clearly shows that similar approach worked for day 14 purely because of huge amount of table copying it replaced. Oh well, gonna settle with 1.35s for now.
