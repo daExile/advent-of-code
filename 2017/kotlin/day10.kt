@@ -1,6 +1,5 @@
 import java.io.File
 
-
 fun main() {
     val input = File("10.txt").readText()
     val dataPart1 = input.split(",").mapNotNull { it.toIntOrNull() }

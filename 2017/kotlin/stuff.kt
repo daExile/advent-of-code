@@ -2,9 +2,9 @@
 operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = Pair(this.first + other.first, this.second + other.second)
 
 // knot hashing
-fun rotateList(list: List<Int>, x: Int) = if (x == 0) list else list.subList(x.mod(list.size), list.size) + list.subList(0, x.mod(list.size))
+fun <T> rotateList(list: List<T>, x: Int) = if (x == 0) list else list.subList(x.mod(list.size), list.size) + list.subList(0, x.mod(list.size))
 
-fun reverseXinList(list: List<Int>, x: Int) = if (x in 1..list.size) list.subList(0, x).reversed() + list.subList(x, list.size) else list
+fun <T> reverseXinList(list: List<T>, x: Int) = if (x in 1..list.size) list.subList(0, x).reversed() + list.subList(x, list.size) else list
 
 fun knotHash(list: List<Int>, input: List<Int>, rounds: Int): List<Int> {
     var pos = 0; var skip = 0; var hashedList = list

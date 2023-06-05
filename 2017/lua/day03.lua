@@ -1,12 +1,10 @@
-function turnleft(t) return {t[2] * -1, t[1] * 1} end
+function turnleft(t) return {-t[2], t[1]} end
 
 function get3x3sum(node)
     local sum = 0
     for i = node[1] - 1, node[1] + 1 do
         for j = node[2] - 1, node[2] + 1 do
-            if grid[i] then
-                if grid[i][j] then sum = sum + grid[i][j] end
-            end
+            if grid[i] and grid[i][j] then sum = sum + grid[i][j] end
         end
     end
     return sum end

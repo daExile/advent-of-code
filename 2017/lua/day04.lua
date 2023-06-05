@@ -5,11 +5,10 @@ function strsort(str)
     table.sort(t)
     return table.concat(t) end
 
-c_all, c_valid1, c_valid2 = 0, 0, 0
+c_valid1, c_valid2 = 0, 0, 0
 for line in io.lines("04.txt") do
     local t1, t2 = {}, {}
-    c_all = c_all + 1
-    words = stuff.str2strtable(line)
+    local words = stuff.str2strtable(line)
   
     for i = 1, #words do
         t1[words[i]] = true
