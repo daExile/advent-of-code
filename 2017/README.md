@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2017 
-### 30:star:
+### 36:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 
 For the reference:
@@ -402,3 +402,118 @@ end
 It could be improved further to about 1.3s with abandoning functions completely and performing all math in the loop, but that improvement wasn't as good, so I kept this somewhat nicely structured version as final (and uploaded the one with `Generator` class separately).
 
 Out of curiosity I tried to use strings to compare last digits, as some terrible makeshift `int16` cast, solution runtime went up to over a minute :D Clearly shows that similar approach worked for day 14 purely because of huge amount of table copying it replaced. Oh well, gonna settle with 1.35s for now.
+## Day 16 - [Permutation Promenade](https://adventofcode.com/2017/day/16)
+Dancing programs, huh. Essentially the task for this day comes down to manipulating a relatively short list or items, following a quite long list of instructions. The instructions can be:
+- `sN`, **spin** - right-shift the list by `N` elements
+- `xM/N`, **exchange** - swap two elements with given indices `M` and `N`
+- `pM/N`, **partner** - swap two elements with names `M` and `N`
+
+Let's do it, then. In **Lua** at this point I decided to go with element names as `table keys` and their positions as `values`, it seemed a little more convenient to code this way. Rotating the list by `N` is simple, for each key and set `(value + result) mod 16` as new value. Swapping elements by name is even easier, as we use names for `keys`.
+```lua
+s = function(n) for k, _ in pairs(progs) do progs[k] = (progs[k] + n) % 16 end end
+p = function(p1, p2) progs[p1], progs[p2] = progs[p2], progs[p1] end
+```
+Swapping by position is less convenient, as we first need to go through the list to find `keys` that match two given `values`:
+```lua
+x = function(n1, n2)
+    local swap = {}
+    for k, v in pairs(progs) do
+        if v == tonumber(n1) or v == tonumber(n2) then table.insert(swap, k) end end
+    p(swap[1], swap[2]) end -- calling the above "partner" function to swap
+```
+I packed it all into the `do_things` table of functions to call by the first letter in each input instruction. Next, we need to process input for the list of dance instructions, here I'm using patterns:
+- `",?([%w/]+),?"` to iterate over whole input and capture instruction chunks, would-be-equivalent of **Kotlin**'s `split(",")`;
+- just the `^%w` to get first symbol of instruction;
+- `"[psx/]([0-9a-p]+)"` to collect move arguments into a table.
+
+First two used to look like `",?([psx][0-9a-p/]+),?"` and `"^([psx])"` after unsuccessful attempts to capture move and its parameters at once. Anyway, all together:
+```lua
+dance = {}
+for s in string.gmatch(io.input("16.txt"):read(), ",?([%w/]+),?") do
+    local move = {}
+    table.insert(move, string.match(s, "^%w"))
+    for arg in string.gmatch(s, "[psx/]([0-9a-p]+)") do table.insert(move, arg) end
+    
+    table.insert(dance, move) end
+```
+Now we can perform it...
+```lua
+for _, move in ipairs(dance) do do_things[move[1]](move[2], move[3]) end
+```
+and print... wait, some assembly is required here, as this decision to use table of programs in a Python's `dict` manner seems less and less convenient.
+```lua
+function listinorder()
+    local s = ""
+    for n = 0, 15 do
+        for k, v in pairs(progs) do
+            if v == n then s = s..k end end end
+    return s end
+```
+Yikes. But if it works, it works, I suppose? Finally we can init the list of programs, run our long list of instructions and get part 1 answer.
+
+Now, part 2 asks to do the same... a billion times. Haha, doubt that it would be feasible to outright simulate it. I ran some tests out of curiosity, though, a thousand cycles was taking about 17 seconds to complete - forever (a long time!). First alternative approach that came to mind was to look for repeats, so I went on with it.
+
+First, it means we need to keep track of program positions after each cycle - a `log` table that takes resulting position string as key will do. Then, a variable to count cycles, of course. And finally, a condition to stop when we met an arrangement we've seen before (thinking of it, I could just check if the cycle outcome matches starting `abcdefghijklmnop`, as it was bound to repeat, too).
+```lua
+log, round = {}, 0
+repeat
+    log[listinorder()] = round
+    round = round + 1
+    for _, move in ipairs(dance) do do_things[move[1]](move[2], move[3]) end
+until log[listinorder()]
+```
+The final value of `round` gives us the number of cycles before they start repeating. At this point all that's left to do is to find the remainder of `1000000000 / repeat length` to get the number of step that would match one billion repeats, and extract it from log:
+```log
+target = 1000000000 % round
+for k, v in pairs(log) do if v == target then print(k) end end
+```
+Iteration over `log` to find the value we need, not optimised yet.
+
+The puzzle was solved, but final runtime was slightly under 1s, which, again, asked for improvement. Let's ditch looking up table contents by key as main method!
+```lua
+do_things = {
+    p = function(p1, p2)
+            local swap = {}
+            for i, v in pairs(progs) do if v == p1 or v == p2 then table.insert(swap, i) end end
+            do_things.x(swap[1], swap[2]) end,
+    s = function(n)
+            for i = 1, 16 - n do progs[i + 16] = progs[i] end
+            for i = 1, 16 do progs[i] = progs[i + 16 - n] end
+        end,
+    x = function(n1, n2) progs[n1], progs[n2] = progs[n2], progs[n1] end
+    }
+```
+Of course, instruction functions had to be changed accordingly. Now **exchange** is the easy one; instead of it, **partner** is now using table lookup for values to swap; **spin** is now done by copying a few elements to the tail of list and shifting it back to indices `1` to `16`. Also, the input processing had to be adjusted a little, too, for **exchange** instruction in particular - to account for indices starting from `1` (which would also convert input arguments into numbers and prevent **Lua** from looking them up as string keys):
+```lua
+for arg in string.gmatch(s, "[psx/]([0-9a-p]+)") do
+    if move[1] == "x" then table.insert(move, arg + 1) else table.insert(move, arg) end
+```
+Getting the list of programs in order is really convenient now, just concatenate first 16 elements of the table! We gotta limit it to 16 because **spin** now clutters the table a bit in higher indices, but that's no big deal. All together in logging line of code:
+```lua
+local list = table.concat(progs, "", 1, 16); log[list] = round; log[round] = list
+```
+Here's another little optimisation at the cost of somewhat increased table size (which at repeat cycle length doesn't really matter) - we save, as keys, both program `list` strings to keep track of encountered "end of cycle" states, and results of each iteration by its `round` number, for easier lookup in the end:
+```lua
+target = 1000000000 % round
+print(log[target])
+```
+Yup, using integer indices is much better, this variant is almost 5x faster (0.2s runtime), and this was considered satisfying enough. In case it was still slow, further improvement ideas were to track positions by index / by name separately and completely ditch lookups in the process; to compute resulting list transformations of one cycle and apply them directly without going through whole list of instructions each time. But to be fair, even original runtime of 0.9s wasn't that bad, so - maybe another time, after finishing AoC 2017 off.
+
+**Kotlin** solution is pretty much a translation of **Lua** code, using available features such as looking up element by its value (`indexOf()`) or mentioned above `split(delimiter)`. For example, input processing translates into this:
+```kotlin
+val dance = File("16.txt").readText().split(",").map { listOf(it[0].toString()) + it.substring(1).split("/") }
+```
+And a cycle of following instructions, using `when`, comes down to:
+```kotlin
+for (step in dance) when (step[0]) { // but I admit, this looks rather messy with all the nested indexing.
+    "s" -> progs = rotateList(progs, -step[1].toInt()).toMutableList()   // minus because shift direction didn't match
+    "p" -> progs[progs.indexOf(step[1])] = progs[progs.indexOf(step[2])] // original day 10 function purpose.
+        .also { progs[progs.indexOf(step[2])] = progs[progs.indexOf(step[1])] }
+    "x" -> progs[step[1].toInt()] = progs[step[2].toInt()]
+        .also { progs[step[2].toInt()] = progs[step[1].toInt()] }
+```
+Overall, not really optimised, but does its job pretty quick, and is pretty low on line count even with extra padding.
+## Day 17 - [Spinlock](https://adventofcode.com/2017/day/17)
+...the story of how I again failed to arrive to proper solution method without bumbling around and unintentionally spoiling it, just like Crab Cups - later.
+## Day 18 - [Duet](https://adventofcode.com/2017/day/18)
+...also later, when **Kotlin** code is done.

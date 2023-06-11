@@ -11,11 +11,11 @@ do_things = {
     }
 
 dance = {}
-for s in string.gmatch(io.input("16.txt"):read(), ",?([psx][0-9a-p/]+),?") do
+for s in string.gmatch(io.input("16.txt"):read(), ",?([%w/]+),?") do
     local move = {}
-    table.insert(move, string.match(s, "^([psx])"))
+    table.insert(move, string.match(s, "^%w"))
     for arg in string.gmatch(s, "[psx/]([0-9a-p]+)") do
-        if move[1] == "x" then table.insert(move, tonumber(arg) + 1) else table.insert(move, arg) end end
+        if move[1] == "x" then table.insert(move, arg + 1) else table.insert(move, arg) end end
     
     table.insert(dance, move) end
 
