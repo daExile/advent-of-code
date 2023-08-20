@@ -1,6 +1,7 @@
-stuff = require("stuff")
+local stuff = require("stuff")
+local weights, holds, heldby, done, unbalanced, delta, root = {}, {}, {}, false
 
-function towercheck(name)
+local function towercheck(name)
     local total, held = weights[name], {}
     for _, item in ipairs(holds[name]) do
         local t = towercheck(item)
@@ -17,9 +18,8 @@ function towercheck(name)
     delta, done = (good - bad), true
     return total end
 
-weights, holds, heldby = {}, {}, {}
 for line in io.lines("07.txt") do
-    name, wgt = string.match(line, "(%w+)%s%((%d+)%)")
+    local name, wgt = string.match(line, "(%w+)%s%((%d+)%)")
     weights[name] = tonumber(wgt)
     if not heldby[name] then heldby[name] = "" end
     
@@ -31,8 +31,7 @@ end
 -- part 1
 for k, v in pairs(heldby) do if v == "" then root = k; break end end
 -- part 2
-done, unbalanced, delta = false
 towercheck(root)
 
 print(string.format("Part 1: %s", root))
-print(string.format("Part 2: %s should have a weight of %d", unbalanced, weights[unbalanced] + delta))
+print(string.format("Part 2: %d", weights[unbalanced] + delta))

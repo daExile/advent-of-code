@@ -3,7 +3,7 @@ import java.io.File
 fun main() {
     val input = File("17.txt").readText().toInt()
 
-    val buffer = IntArray(2018){ 0 }
+    val buffer = IntArray(2018)
     var pos = 0
     
     for (n in 1..2017) {

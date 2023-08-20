@@ -1,13 +1,13 @@
-stuff = require("stuff")
+local stuff = require("stuff")
 
-ops = { ["<"] = function(r, n) return regs[r] < n end,
+local regs, max = {}, 0
+local ops = { ["<"] = function(r, n) return regs[r] < n end,
         [">"] = function(r, n) return regs[r] > n end,
         ["<="] = function(r, n) return regs[r] <= n end,
         [">="] = function(r, n) return regs[r] >= n end,
         ["=="] = function(r, n) return regs[r] == n end,
         ["!="] = function(r, n) return regs[r] ~= n end }
 
-regs, max = {}, 0
 for line in io.lines("08.txt") do
     local r1, sign, n1, r2, op, n2 = string.match(line, "(%w+) (%w+) (%-?%d+) if (%w+) ([!<>=]=?) (%-?%d+)")
     if sign == "dec" then n1 = -n1 end

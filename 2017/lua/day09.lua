@@ -1,9 +1,9 @@
-stuff = require("stuff")
+local stuff = require("stuff")
 
-input_with_cancels = string.gsub((io.open("09.txt", "r"):read()), "!.", "")
-input_no_garbo = stuff.str2anychartable(string.gsub(input_with_cancels, "<[^>]*>", "<>"))
+local input_with_cancels = string.gsub((io.open("09.txt", "r"):read()), "!.", "")
+local input_no_garbo = stuff.str2anychartable(string.gsub(input_with_cancels, "<[^>]*>", "<>"))
 
-tier, score = 0, 0
+local tier, score = 0, 0
 for _, char in ipairs(input_no_garbo) do
     if char == "{" then tier = tier + 1; score = score + tier elseif char == "}" then tier = tier - 1 end end
 

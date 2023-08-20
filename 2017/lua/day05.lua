@@ -1,4 +1,4 @@
-function jumparound(t, part2)
+local function jumparound(t, part2)
     local jumps, index = 0, 1
   
     while true do
@@ -14,7 +14,7 @@ function jumparound(t, part2)
     end
     return jumps end
 
-run1, run2 = {}, {}
+local run1, run2 = {}, {}
 for v in io.lines("05.txt") do
     table.insert(run1, tonumber(v))
     table.insert(run2, tonumber(v))

@@ -1,8 +1,6 @@
 import java.io.File
 import kotlin.math.*
 
-fun turnLeft(dir: Pair<Int, Int>) = Pair(-dir.second, dir.first)
-
 fun main() {
     val input = File("03.txt").readText().toInt()
     

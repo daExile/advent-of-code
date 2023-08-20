@@ -1,18 +1,15 @@
-stuff = require("stuff")
+local stuff = require("stuff")
+local banks = stuff.str2numtable(io.input("06.txt"):read()); io.close()
 
-function redistribute(k)
-    bank, banks[k] = banks[k], 0
+local function redistribute(k)
+    local bank = banks[k]; banks[k] = 0
     for i = 1, bank do
         k = k % #banks + 1
         banks[k] = banks[k] + 1
     end
 end
 
-banks = stuff.str2numtable(io.input("06.txt"):read())
-io.close()
-
-log = {}
-cycle = 0
+local log, cycle, state = {}, 0
 while true do
     cycle = cycle + 1
     redistribute(stuff.tablemaxindex(banks))

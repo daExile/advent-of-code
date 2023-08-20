@@ -1,12 +1,12 @@
-stuff = require("stuff")
+local stuff = require("stuff")
 
-function getlinks(name, links)
+local pipes, groups, log = {}, {}, {}
+local function getlinks(name, links)
     links[name] = true; log[name] = true
     for _, v in ipairs(pipes[name]) do
         if not links[v] then getlinks(v, links) end end
     return links end
 
-pipes, groups, log = {}, {}, {}
 for line in io.lines("12.txt") do
     local name, data = string.match(line, "(%d+) <%-> (.+)");
     pipes[tonumber(name)] = stuff.str2numtable(data)

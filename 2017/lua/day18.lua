@@ -1,70 +1,62 @@
-Prog = {}               -- "class" for single program, part 1
+Prog = {}               -- "class" for single thread, part 1
 
 function Prog:new()
     newobj = {regs = {}, ptr = 1}
     self.__index = self
     return setmetatable(newobj, self) end
 
-function Prog:get(x) return self.regs[x] or x end
+function Prog:get(x) return self.regs[x] or tonumber(x) or 0 end
 
 function Prog:snd(x) self.regs["snd"] = self:get(x) end
-function Prog:rcv(x) if self:get(x) ~= 0 then self.regs["rcv"] = self.regs["snd"] end end
-function Prog:set(r, x) self.regs[r] = self:get(x) end
+function Prog:rcv(x) if self:get(x) ~= 0 then self.regs["rcv"] = self.regs["snd"]; self.ptr = -1 end end
+function Prog:set(r, x) self.regs[r] = self:get(x) end  -- stop thread by setting pointer ----^ out of input
 function Prog:add(r, x) self.regs[r] = (self.regs[r] or 0) + self:get(x) end
 function Prog:mul(r, x) self.regs[r] = (self.regs[r] or 0) * self:get(x) end
 function Prog:mod(r, x) self.regs[r] = (self.regs[r] or 0) % self:get(x) end
 function Prog:jgz(x, y) if self:get(x) > 0 then self.ptr = self.ptr + self:get(y) - 1 end end
                                         -- workaround for pointer++ in main loop ---^
-ProgThread = Prog:new() -- "class" for thread, for multithreaded part 2
+ProgThread = Prog:new() -- "class" with extras for multithreaded part 2
 
-function ProgThread:new(id, t_id)
-  newobj = {regs = {["p"] = id}, queue = {}, target = t_id, wait = false}
-  self.__index = self
-  return setmetatable(newobj, self)
-end
+function ProgThread:new(p, q_out, q_in) -- i couldn't resist starting doing 0ut / 1n here, sorry, Lua
+    newobj = {regs = {["p"] = p}, qs = {[0] = q_out, [1] = q_in}, wait = false}
+    self.__index = self
+    return setmetatable(newobj, self) end
 
-function ProgThread:snd(x, pr)
-    table.insert(pr[self.target].queue, 1, self:get(x))
+function ProgThread:snd(x)
+    table.insert(self.qs[0], 1, self:get(x))
     self.regs["snd"] = (self.regs["snd"] or 0) + 1 end
 function ProgThread:rcv(x)
-    if #self.queue > 0 then self.regs[x] = table.remove(self.queue); self.wait = false
+    if #self.qs[1] > 0 then self.regs[x] = table.remove(self.qs[1]); self.wait = false
     else self.wait = true end end
 
-ops = { ["snd"] = function(pr, id, x) pr[id]:snd(x, pr) end,
-        ["rcv"] = function(pr, id, x) pr[id]:rcv(x) end,
-        ["set"] = function(pr, id, r, x) pr[id]:set(r, x) end,
-        ["add"] = function(pr, id, r, x) pr[id]:add(r, x) end,
-        ["mul"] = function(pr, id, r, x) pr[id]:mul(r, x) end,
-        ["mod"] = function(pr, id, r, x) pr[id]:mod(r, x) end,
-        ["jgz"] = function(pr, id, x, y) pr[id]:jgz(x, y) end }
+ops = { ["snd"] = function(prog, x) prog:snd(x) end,
+        ["rcv"] = function(prog, x) prog:rcv(x) end,
+        ["set"] = function(prog, r, x) prog:set(r, x) end,
+        ["add"] = function(prog, r, x) prog:add(r, x) end,
+        ["mul"] = function(prog, r, x) prog:mul(r, x) end,
+        ["mod"] = function(prog, r, x) prog:mod(r, x) end,
+        ["jgz"] = function(prog, x, y) prog:jgz(x, y) end }
 
-input = {}
+local input = {}
 for line in io.lines("18.txt") do
     local t = {}
-    for item in string.gmatch(line, "([%w-]+)") do table.insert(t, tonumber(item) or item) end
+    for item in string.gmatch(line, "([%w-]+)") do table.insert(t, item) end
     table.insert(input, t)
 end
 
-p1 = {Prog:new()}                                             -- running part 1
-while input[p1[1].ptr] do
-    local t = input[p1[1].ptr]
-    ops[t[1]](p1, 1, t[2], t[3])
-    
-    if p1[1].regs["rcv"] then break end
-    p1[1].ptr = p1[1].ptr + 1 end
-
-p2 = {[0] = ProgThread:new(0, 1), [1] = ProgThread:new(1, 0)} -- running part 2
+local qs = {{}, {}}       -- setting up runner for both parts, part 1: [1], part 2: [2, 3]
+local progs, live = {Prog:new(), ProgThread:new(0, qs[1], qs[2]), ProgThread:new(1, qs[2], qs[1])}
 repeat
     live = 0
-    for n = 0, 1 do
-        if input[p2[n].ptr] then
-            local t = input[p2[n].ptr]
-            ops[t[1]](p2, n, t[2], t[3])
+    for n = 1, 3 do
+        if input[progs[n].ptr] then
+            local t = input[progs[n].ptr]
+            ops[t[1]](progs[n], t[2], t[3])
         
-            if not p2[n].wait then live = live + 1; p2[n].ptr = p2[n].ptr + 1 end
+            if not progs[n].wait then live = live + 1; progs[n].ptr = progs[n].ptr + 1 end
         end
     end
 until live == 0
 
-print(string.format("Part 1: %d", p1[1].regs["rcv"]))
-print(string.format("Part 2: %d", p2[1].regs["snd"]))
+print(string.format("Part 1: %d", progs[1].regs["rcv"]))
+print(string.format("Part 2: %d", progs[3].regs["snd"]))

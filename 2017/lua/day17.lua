@@ -1,6 +1,6 @@
-input = tonumber(io.open("17.txt", "r"):read())
+local input = tonumber(io.open("17.txt", "r"):read())
 
-buffer, pos = {[0] = 0}, 0
+local buffer, pos, current, target = {[0] = 0}, 0
 
 for n = 1, 2017 do
     for i = 1, input do pos = buffer[pos] end

@@ -1,11 +1,11 @@
-stuff = require("stuff")
+local stuff = require("stuff")
 
-function strsort(str)
+local function strsort(str)
     local t = stuff.str2alnumchartable(str)
     table.sort(t)
     return table.concat(t) end
 
-c_valid1, c_valid2 = 0, 0, 0
+local c_valid1, c_valid2 = 0, 0, 0
 for line in io.lines("04.txt") do
     local t1, t2 = {}, {}
     local words = stuff.str2strtable(line)

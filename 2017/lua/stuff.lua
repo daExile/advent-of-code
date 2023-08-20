@@ -2,16 +2,16 @@ local stuff = {}
 
 -- general purpose functions
     -- some string to table conversions
-function stuff.str2table(str, pattern)
+function stuff.str2table(str, pattern, numbers)
     local t = {}
     for item in string.gmatch(str, pattern) do
-        if pattern == "%d+" then table.insert(t, tonumber(item)) else table.insert(t, item) end
+        if numbers then table.insert(t, tonumber(item)) else table.insert(t, item) end
     end
     return t end
 
 function stuff.str2strtable(str) return stuff.str2table(str, "%w+") end
 
-function stuff.str2numtable(str) return stuff.str2table(str, "%d+") end
+function stuff.str2numtable(str) return stuff.str2table(str, "[%d%-]+", true) end
 
 function stuff.str2alnumchartable(str) return stuff.str2table(str, "%w") end
 
@@ -44,6 +44,13 @@ function stuff.tablesize(t)
     for k, v in pairs(t) do size = size + 1 end
     return size end
     
+    -- 90° turns for {x, y} vector
+function stuff.turnleft(t) return {-t[2], t[1]} end
+
+function stuff.turnright(t) return {t[2], -t[1]} end
+
+function stuff.turnback(t) return {-t[1], -t[2]} end
+
 -- AoC 2017 knot hashing functions w/supplements
     -- init starting string
 function stuff.init()

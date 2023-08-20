@@ -1,6 +1,11 @@
 // convenience
 operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = Pair(this.first + other.first, this.second + other.second)
 
+// grid movement
+fun turnLeft(dir: Pair<Int, Int>) = Pair(-dir.second, dir.first)
+
+fun turnRight(dir: Pair<Int, Int>) = Pair(dir.second, -dir.first)
+
 // knot hashing
 fun <T> rotateList(list: List<T>, x: Int) = if (x == 0) list else list.subList(x.mod(list.size), list.size) + list.subList(0, x.mod(list.size))
 
