@@ -5,12 +5,26 @@ for line in answers:
     if line == "\n": n += 1
     else:
         if len(groups) == n:
-            groups.append(line.strip())
-        else: groups[n] += line.strip()
+            groups.append([])
+        groups[n].append(line.strip())
 
-# ans_count = []
-puzzle_answer = 0
+answer = 0
 for group in groups:
-    puzzle_answer += len(set(group))
+    answer += len(set("".join(group)))
     
-print("Answer:", puzzle_answer)
+print("Part 1:", answer)
+
+answer = 0
+for group in groups:
+    size = len(group)   
+    answers = ""
+    for line in group:
+        answers += line
+    group_set = set(answers)
+    eb_set = []
+    for item in group_set:
+        if answers.count(item) == size: eb_set.append(item)
+
+    answer += len(eb_set)
+
+print("Part 2:", answer)

@@ -49,10 +49,10 @@ a_list = []
 #keys = list(a_match.keys())
 for key in a_match:
     a_list.append(a_match[key][0])
-print(a_list)
+#print(a_list)
 for f in foods:
     a1 += len(set(f['ingred']) - set(a_list))
-print("Part 1 answer:", a1)
+print("Part 1:", a1)
 
 a_keys = list(a_match.keys())
 a_keys.sort()
@@ -61,4 +61,4 @@ a_keys.sort()
 cdil=""
 for key in a_keys:
     cdil += a_match[key][0] +","
-print("Part 2 answer:", cdil[:-1])
+print("Part 2:", cdil[:-1])

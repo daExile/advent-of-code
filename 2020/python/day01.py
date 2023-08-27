@@ -11,12 +11,19 @@ a = 0
 b = len(reportdata)-1
 while (a < b):
     t = reportdata[a]+reportdata[b]
-    print(reportdata[a], "+", reportdata[b],"=", t)
     if t == 2020: break
     elif t < 2020:
         a += 1
     else: b -= 1
 
-print("n1:", reportdata[a])
-print("n2:", reportdata[b])
-print("Answer:", reportdata[a]*reportdata[b])
+print("Part 1:", reportdata[a]*reportdata[b])
+
+for a in range(0, len(reportdata)):
+    for b in range(a+1, len(reportdata)):
+        for c in range(b+1, len(reportdata)):
+            t = reportdata[a] + reportdata[b] + reportdata[c]
+            if t == 2020:
+                print("Part 2:", reportdata[a]*reportdata[b]*reportdata[c])
+            if t >= 2020: break
+        if t >= 2020: break
+    if t == 2020: break

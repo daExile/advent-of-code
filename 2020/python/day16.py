@@ -14,8 +14,6 @@ t = file.readline().strip().split(",")
 my = []
 for n in t:
     my.append(int(n))
-#print(my)
-#print(field_data.keys())
 
 lb = ub = 500
 for item in field_data:
@@ -23,6 +21,7 @@ for item in field_data:
     if field_data[item][1][1] > ub: ub = field_data[item][1][1]
 
 rest = []
+error_rate = 0
 for line in file:
     t = line.strip().split(",")
     ticket = []
@@ -30,10 +29,10 @@ for line in file:
         ticket.append(int(n))
     bad = False
     for n in ticket:
-        if n < lb or n > ub: bad = True
+        if n < lb or n > ub:
+            bad = True
+            error_rate += n
     if not bad: rest.append(ticket)
-#for item in field_data:
-#    print(item, ": ", field_data[item])
 file.close()
 
 #time to find the fields out
@@ -53,8 +52,6 @@ for x in range(0, 20):
             if not belongs(cat, ticket[x]): l.remove(cat)
     fields.append(l)
 
-#for f in fields:
-#    print(len(f), ":", f)
 # ohwell, of course it would not be simple sorting out
 finally_ = [[] for _ in range(0, 20)]
 #print(finally_)
@@ -66,9 +63,10 @@ for x in range(0, len(fields)):
             break
     for f in fields:
         if len(f) > 0: f.remove(t)
-print(finally_)
 
 answer = 1
 for i in range(0, 20):
     if finally_[i][0].startswith("departure"): answer *= my[i]
-print(answer)
+
+print("Part 1:", error_rate)
+print("Part 2:", answer)

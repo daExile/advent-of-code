@@ -19,7 +19,7 @@ while True:
     e = file.readline() #dumping spacers lol
 
 del(e)
-print("Tiles read:", len(tiles))
+#print("Tiles read:", len(tiles))
 
 #let's parse that shit
 bin_it = str.maketrans(".# ", "010")
@@ -127,7 +127,7 @@ for tile in list(tmap.keys()):
     if ymin > tile[1]: ymin = tile[1]
     if ymax < tile[1]: ymax = tile[1]
 
-print("Part 1 answer:", tmap[(xmin, ymin)]['id'] * tmap[(xmax, ymin)]['id'] * tmap[(xmin, ymax)]['id'] * tmap[(xmax, ymax)]['id'])
+print("Part 1:", tmap[(xmin, ymin)]['id'] * tmap[(xmax, ymin)]['id'] * tmap[(xmin, ymax)]['id'] * tmap[(xmax, ymax)]['id'])
 
 #build a tile table
 #tt = []
@@ -214,5 +214,5 @@ for f in [0, 1]:
         if count: break
     if count: break
 
-print("Part 2 answer:", stuff_total - count * snaek_mass)
+print("Part 2:", stuff_total - count * snaek_mass)
 #yay no monster overlaps

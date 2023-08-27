@@ -3,18 +3,25 @@ pdata = open("02.txt", "r")
 for line in pdata:
     tmp = line.split()
     tmp2 = tmp[0].split("-")
-    p.append({"pass": tmp[2], "policy": tmp[1][0], "lower": int(tmp2[0]), "upper": int(tmp2[1])})
+    p.append({"pass": tmp[2], "policy": tmp[1][0], "p1": int(tmp2[0]), "p2": int(tmp2[1])})
 pdata.close()
 
-# print(len(p))
-
 bad = 0
-report = "Password {} has {} \"{}\" instead of {}-{}."
 for pswd in p:
     c = pswd["pass"].count(pswd["policy"])
-    if c < pswd["lower"] or c > pswd["upper"]:
+    if c < pswd["p1"] or c > pswd["p2"]:
         bad += 1
-        print(report.format(pswd["pass"], c, pswd["policy"], pswd["lower"], pswd["upper"]))
 
-print("Total bad passwords:", bad)
-print("Total valid passwords:", len(p)-bad)
+print("Part 1:", len(p)-bad)
+
+bad = 0
+for pswd in p:
+    key = pswd["policy"]
+    p1 = pswd["pass"][pswd["p1"]-1]
+    p2 = pswd["pass"][pswd["p2"]-1]
+    if (p1 == key and p2 == key):
+        bad += 1
+    elif (p1 != key and p2 != key):
+        bad += 1
+
+print("Part 2:", len(p)-bad)

@@ -27,7 +27,7 @@ for line in file:
     if c in tiles: tiles.remove(c)
     else: tiles.append(c)
 
-print("Part 1 answer:", len(tiles))
+print("Part 1:", len(tiles))
 
 #let's try conway cubes way
 #kinda slow but works, no idea how to optimise this for now
@@ -61,5 +61,5 @@ for d in range(days):
                 if neigh > 2: break
             if neigh == 2: t_n.append(t)
     tiles = t_n[:]
-    print("Day", d + 1, "-", len(tiles), "black tiles")
-print("Part 2 answer:", len(tiles))
+    #print("Day", d + 1, "-", len(tiles), "black tiles")
+print("Part 2:", len(tiles))
