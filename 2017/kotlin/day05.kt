@@ -16,7 +16,7 @@ fun jumpAround(input: List<Int>, rule: Int = 1): Int {
 }
 
 fun main() {
-    val input = File("05.txt").readLines().map { it.toInt() }
+    val input = File("../__in/05.txt").readLines().map { it.toInt() }
     
     println("Part 1: ${jumpAround(input)}")
     println("Part 2: ${jumpAround(input, 2)}")

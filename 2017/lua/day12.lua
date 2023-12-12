@@ -7,7 +7,7 @@ local function getlinks(name, links)
         if not links[v] then getlinks(v, links) end end
     return links end
 
-for line in io.lines("12.txt") do
+for line in io.lines("../__in/12.txt") do
     local name, data = string.match(line, "(%d+) <%-> (.+)");
     pipes[tonumber(name)] = stuff.str2numtable(data)
 end

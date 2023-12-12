@@ -1,7 +1,7 @@
 local stuff = require("stuff")
 
 local input = {}
-for line in io.lines("19.txt") do table.insert(input, stuff.str2anychartable(line)) end
+for line in io.lines("../__in/19.txt") do table.insert(input, stuff.str2anychartable(line)) end
 
 local dir, row, col = {1, 0}, 1
 for i, v in ipairs(input[1]) do if v ~= " " then col = i break end end

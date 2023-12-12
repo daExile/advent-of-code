@@ -17,7 +17,7 @@ local function addbridge(path, bridge_id)
 
     return {bridges = t, endnode = end_new, sum = sum_new} end
 
-for line in io.lines("24.txt") do
+for line in io.lines("../__in/24.txt") do
     local n1, n2 = getnodes(line)
 
     table.insert(bridges, {nodes = {n1, n2}, str = (n1 + n2)})

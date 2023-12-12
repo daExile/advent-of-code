@@ -10,7 +10,7 @@ local function findanddivide(t)
 end
 
 local checksum1, checksum2 = 0, 0
-for line in io.lines("02.txt") do
+for line in io.lines("../__in/02.txt") do
     local nums = stuff.str2numtable(line)
     local limits = stuff.tableminmax(nums)
     checksum1 = checksum1 + limits[2] - limits[1]

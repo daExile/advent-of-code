@@ -12,7 +12,7 @@ local do_things; do_things = {
     }
 
 local dance = {}
-for s in string.gmatch(io.input("16.txt"):read(), ",?([%w/]+),?") do
+for s in string.gmatch(io.input("../__in/16.txt"):read(), ",?([%w/]+),?") do
     local move = {}
     table.insert(move, string.match(s, "^%w"))
     for arg in string.gmatch(s, "[psx/]([0-9a-p]+)") do

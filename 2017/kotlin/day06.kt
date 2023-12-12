@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val banks = File("06.txt").readText().split("""\s+""".toRegex()).map { it.toInt() }.toMutableList()
+    val banks = File("../__in/06.txt").readText().trim().split("""\s+""".toRegex()).map { it.toInt() }.toMutableList()
     var opCount = 0
     val log = mutableMapOf<String, Int>()
     

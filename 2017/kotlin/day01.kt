@@ -1,8 +1,8 @@
 import java.io.File
 
 fun main() {
-    val input = File("01.txt").readText()
-    val list = input.map { it.toString().toInt() }.toList()
+    val input = File("../__in/01.txt").readText().trim()
+    val list = input.map { it.toString().toInt() }
     var checksum = 0
     
     // part 1

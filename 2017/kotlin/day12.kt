@@ -36,7 +36,7 @@ class Graph {
 
 fun main() {
     val pipes = Graph()
-    for (line in File("12.txt").readLines()) {
+    for (line in File("../__in/12.txt").readLines()) {
         val node = Regex("""(\d+)""").findAll(line).map { it.value }.toList()
         pipes.addNode(node[0], node.subList(1, node.size))
     }

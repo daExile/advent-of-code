@@ -61,7 +61,7 @@ class Particle(input: String) {
 }
 
 fun main() {
-    val GPUData = File("20.txt").readLines().map { Particle(it) }.toMutableList()
+    val GPUData = File("../__in/20.txt").readLines().map { Particle(it) }.toMutableList()
     println("Part 1: ${GPUData.indexOf(GPUData.minBy { it.getAbsValue() } )}")
     
     for (i in 0 until GPUData.lastIndex) {

@@ -19,7 +19,7 @@ class Generator(private val factor: Int) {
 fun main() {
     val A = Generator(16807)
     val B = Generator(48271)
-    val (a0, b0) = File("15.txt").readLines().map { Regex("""(\d+)""").find(it)!!.value.toLong() }
+    val (a0, b0) = File("../__in/15.txt").readLines().map { Regex("""(\d+)""").find(it)!!.value.toLong() }
     
     var count1 = 0
     A.setValue(a0); B.setValue(b0)

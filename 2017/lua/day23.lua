@@ -20,7 +20,7 @@ local ops = { ["set"] = function(prog, r, x) prog:set(r, x) end,
         ["jnz"] = function(prog, x, y) prog:jnz(x, y) end }
 
 local input = {}
-for line in io.lines("23.txt") do
+for line in io.lines("../__in/23.txt") do
     local t = {}
     for item in string.gmatch(line, "([%w-]+)") do table.insert(t, item) end
     table.insert(input, t)

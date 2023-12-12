@@ -3,7 +3,7 @@ import java.io.File
 fun toBinaryString(n: Int) = n.toString(2).padStart(8, '0')
 
 fun main() {
-    val input = File("14.txt").readText()
+    val input = File("../__in/14.txt").readText().trim()
     var count1s = 0
     val map = List(128) {
         i -> denseHash(knotHash(List(256) { j -> j }, ("$input-$i").map { it.code } + listOf(17, 31, 73, 47, 23), 64), ::toBinaryString)

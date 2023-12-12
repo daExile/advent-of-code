@@ -6,7 +6,7 @@ val move = mapOf("n" to Pair(0, 1), "ne" to Pair(1, 0), "se" to Pair(1, -1), "s"
 fun hexManhattanDist(pos: Pair<Int, Int>): Int = if (pos.first.sign == pos.second.sign) abs(pos.first) + abs(pos.second) else max(abs(pos.first), abs(pos.second))
 
 fun main() {
-    val steps = File("11.txt").readText().split(",")
+    val steps = File("../__in/11.txt").readText().trim().split(",")
     var pos = Pair(0, 0)
     var maxDist = 0
     

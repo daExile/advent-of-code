@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val almostRawInput = File("09.txt").readText().replace("!.".toRegex(), "")
+    val almostRawInput = File("../__in/09.txt").readText().replace("!.".toRegex(), "")
     val cleanInput = almostRawInput.replace("<[^>]*>".toRegex(), "<>")
 
     var score = 0; var groupLevel = 0

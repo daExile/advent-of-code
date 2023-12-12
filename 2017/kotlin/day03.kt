@@ -2,7 +2,7 @@ import java.io.File
 import kotlin.math.*
 
 fun main() {
-    val input = File("03.txt").readText().toInt()
+    val input = File("../__in/03.txt").readText().toInt()
     
     val a = with(ceil(sqrt(input.toDouble())).toInt()) { if (this % 2 != 0) this else this + 1 }
     // i hope math gods won't smite me but i couldn't help these polar coords similarities

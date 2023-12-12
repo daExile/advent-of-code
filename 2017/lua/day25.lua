@@ -1,4 +1,4 @@
-local input = io.open("25.txt", "r"):read("*a")
+local input = io.open("../__in/25.txt", "r"):read("*a")
 
 local rulepattern = "value is ([01]).*value ([01]).*to the ([%w]+).*state ([A-Z])"
 local rules = {}

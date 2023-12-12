@@ -2,7 +2,7 @@ local stuff = require("stuff")
 
 local function getgrid()
     local grid, inputsize, row = {}
-    for line in io.lines("22.txt") do
+    for line in io.lines("../__in/22.txt") do
         if not inputsize then inputsize = #line; row = (inputsize - 1) / 2 end
     
         grid[row] = {}

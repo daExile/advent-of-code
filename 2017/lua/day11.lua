@@ -20,7 +20,7 @@ local function reduce(t)
 
 local function hexmd(t) return math.abs(t[1] - t[2] - t[3]) end
 
-local input = stuff.str2strtable(io.open("11.txt", "r"):read())
+local input = stuff.str2strtable(io.open("../__in/11.txt", "r"):read())
 
 local pos, max = {0, 0, 0}, 0
 for _, v in ipairs(input) do

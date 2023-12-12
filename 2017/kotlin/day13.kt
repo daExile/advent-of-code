@@ -3,7 +3,7 @@ import java.io.File
 class SecurityScanner(val depth: Int, val range: Int)
 
 fun main() {
-    val firewall = File("13.txt").readLines()
+    val firewall = File("../__in/13.txt").readLines()
         .map { line -> line.split(": ").map { it.toInt() } }
         .map { SecurityScanner(it[0], it[1]) }
 

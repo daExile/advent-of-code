@@ -1,5 +1,5 @@
 local stuff = require("stuff")
-local input, grid, node, dir, value = tonumber(io.open("03.txt", "r"):read())
+local input, grid, node, dir, value = tonumber(io.open("../__in/03.txt", "r"):read())
 
 local function get3x3sum(node)
     local sum = 0

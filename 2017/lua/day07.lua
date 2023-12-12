@@ -18,7 +18,7 @@ local function towercheck(name)
     delta, done = (good - bad), true
     return total end
 
-for line in io.lines("07.txt") do
+for line in io.lines("../__in/07.txt") do
     local name, wgt = string.match(line, "(%w+)%s%((%d+)%)")
     weights[name] = tonumber(wgt)
     if not heldby[name] then heldby[name] = "" end

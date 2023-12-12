@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val input = File("10.txt").readText()
+    val input = File("../__in/10.txt").readText().trim()
     val dataPart1 = input.split(",").mapNotNull { it.toIntOrNull() }
     val dataPart2 = input.map { it.code } + listOf(17, 31, 73, 47, 23)
     

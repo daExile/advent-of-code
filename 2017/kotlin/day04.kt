@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val input = File("04.txt").readLines()
+    val input = File("../__in/04.txt").readLines()
     
     var count1 = 0
     var count2 = 0

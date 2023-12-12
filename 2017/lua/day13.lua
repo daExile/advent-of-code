@@ -1,5 +1,5 @@
 local scanners = {}
-for line in io.lines("13.txt") do
+for line in io.lines("../__in/13.txt") do
     local depth, range = string.match(line, "(%d+): (%d+)");
     table.insert(scanners, {depth = tonumber(depth), range = tonumber(range)})
 end

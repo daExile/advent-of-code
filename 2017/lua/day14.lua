@@ -1,6 +1,6 @@
 local stuff = require("stuff")
 
-local input, map = io.input("14.txt"):read(), {}; io.close()
+local input, map = io.input("../__in/14.txt"):read(), {}; io.close()
 local neighbour_deltas = {{x = 1, y = 0}, {x = 0, y = 1}, {x = -1, y = 0}, {x = 0, y = -1}}
 size = 256
 

@@ -1,6 +1,6 @@
 local stuff = require("stuff")
 
-local input_with_cancels = string.gsub((io.open("09.txt", "r"):read()), "!.", "")
+local input_with_cancels = string.gsub((io.open("../__in/09.txt", "r"):read()), "!.", "")
 local input_no_garbo = stuff.str2anychartable(string.gsub(input_with_cancels, "<[^>]*>", "<>"))
 
 local tier, score = 0, 0

@@ -4,3 +4,9 @@
 out/
 learn.lua
 profile.lua
+/.metadata/
+*.exe
+Debug/
+.settings/
+.cproject
+.project

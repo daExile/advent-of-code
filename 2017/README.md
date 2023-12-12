@@ -1,6 +1,8 @@
 ﻿# Advent of Code 2017 
-### 36:star:
+### 50:star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
+
+Odd days are solved in Kotlin first, even - in Lua first. Naturally I started day 1 with Kotlin as something I was already familiar with to some degree, and decided to swap languages over for every puzzle.
 
 For the reference:
 - **Kotlin**: latest stable 1.8.x with IntelliJ IDEA.
@@ -497,7 +499,7 @@ Here's another little optimisation at the cost of somewhat increased table size 
 target = 1000000000 % round
 print(log[target])
 ```
-Yup, using integer indices is much better, this variant is almost 5x faster (0.2s runtime), and this was considered satisfying enough. In case it was still slow, further improvement ideas were to track positions by index / by name separately and completely ditch lookups in the process; to compute resulting list transformations of one cycle and apply them directly without going through whole list of instructions each time. But to be fair, even original runtime of 0.9s wasn't that bad, so - maybe another time, after finishing AoC 2017 off.
+Yup, using integer indices is much better, this variant is almost 5x faster (0.2s runtime), and this was considered satisfying enough. In case it was still slow, further improvement ideas were to track positions by index / by name separately and completely ditch lookups in the process; to compute resulting list transformations of one cycle and apply them directly without going through whole list of instructions each time. But to be fair, even original runtime of 0.9s wasn't that bad, so - maybe another time, after finishing the rest of AoC 2017.
 
 **Kotlin** solution is pretty much a translation of **Lua** code, using available features such as looking up element by its value (`indexOf()`) or mentioned above `split(delimiter)`. For example, input processing translates into this:
 ```kotlin
@@ -514,6 +516,46 @@ for (step in dance) when (step[0]) { // but I admit, this looks rather messy wit
 ```
 Overall, not really optimised, but does its job pretty quick, and is pretty low on line count even with extra padding.
 ## Day 17 - [Spinlock](https://adventofcode.com/2017/day/17)
-...the story of how I again failed to arrive to proper solution method without bumbling around and unintentionally spoiling it, just like Crab Cups - later.
+Quite the opposite of the previous day - we have to fill a circular buffer with numbers using one simple rule, `do X steps before putting new number in`. As the number of rounds to simulate is fairly low in part 1, let's play by the given rule for starters.
+```kotlin
+val buffer = mutableListOf(0)
+var n = 0; var pos = 0
+for (n in 1..2017) {
+    pos = (pos + input) % buffer.size + 1
+    buffer.add(pos, n)
+}
+
+println("Answer: ${buffer[(pos + 1) % buffer.size]}")
+```
+For only 2017 additions this works reasonably fast, but - one could absolutely expect part 2 of the puzzle to blow things out of proportions.
+
+And it sure does, asking us to find the result of 50 million additions. Now such direct approach, due to having to shift ever larger number of elements with each step, grinds to a halt long before reaching one millionth step. So, like in [Crab Cups](https://adventofcode.com/2020/day/23), I went with a "linked list" made with a regular array, where `array[n]` stores number that follows `n`:
+```kotlin
+val buffer = IntArray(N + 1)
+var pos = 0
+    
+for (n in 1..N) {
+    repeat(input) { pos = buffer[pos] } // 1. do "input" number of steps
+    buffer[n] = buffer[pos]             // 2. link newly added number to the next in the list
+    buffer[pos] = n                     //    and link previous number to new one
+    pos = buffer[pos]                   // 3. move pointer to the new number
+}
+```
+The answers will be conveniently stored in elements at index the problem statement mentions, `2017` for part 1, `0` for part 2.
+
+Well, getting rid of increasingly slow inserts leaves us with constantly slow sequential indexing. It wouldn't be an issue with small numbers of steps per round (with exemplary input of `3` it gets solved in tenths of a second), but our actual input is several hundreds, instead, and stepping through the list now dominates the whole process. Wouldn't it be cool to have best of both worlds, arrays' quick random element access and linked lists' quick insert? At this point I was looking for ways to make existing code faster (changed original `Array<Int>` to primitive `IntArray` as a part of it, too), but still walked into spoilers on how else it could be done (note to self: just read the instructions, carefully, again). But to be fair, albeit *quite slow*, linked list approach still solves part 2 in conceivable time - under 3 minutes and a half on my machine, I've done much worse in Python solutions of other years :)
+
+Anyway, the trick is this: number `0` (that we start whole process with) always stays at index `0` - obviously elements inserted after it don't move it, and elements added directly before it get appended to the end of the buffer instead. Finding `value after 0`, therefore, comes down to getting the second element of the buffer. It lets us avoid using *any* list or array entirely, and only track just one specific element and current pointer position, while buffer size for wrapping is `number of round + 1`.
+```kotlin
+var target = 0
+var pos = 0
+    
+for (n in 1..50000000) {
+    pos = (pos + input) % n + 1 // update pointer position
+    if (pos == 1) target = n    // save the value that would be inserted at buffer[1]
+}
+```
 ## Day 18 - [Duet](https://adventofcode.com/2017/day/18)
-...also later, when **Kotlin** code is done.
+Another assembly puzzle! And it's not a linear input processing this time, so it'll need some structure, unlike day 8.
+
+First of all, input format is new, we have an opcode followed by one or two arguments, that can be either a number or a register name.

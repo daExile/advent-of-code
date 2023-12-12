@@ -43,7 +43,7 @@ local function collide(p1, p2)
     table.sort(t); return t[1] or 0 end
     
 local particles = {}
-for line in io.lines("20.txt") do table.insert(particles, stuff.str2numtable(line)) end
+for line in io.lines("../__in/20.txt") do table.insert(particles, stuff.str2numtable(line)) end
 
 local a_cl, v_cl, p_cl, id_closest
 for id, data in ipairs(particles) do

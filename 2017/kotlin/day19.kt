@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val input = File("19.txt").readLines()
+    val input = File("../__in/19.txt").readLines()
     
     var pos = Pair(0, input[0].indexOfFirst { it != ' ' } ) // first is row index, second is column
     var dir = Pair(1, 0)            // we pretty much have regular (x, y) axes rotated 90° clockwise

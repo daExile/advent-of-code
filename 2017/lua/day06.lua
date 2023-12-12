@@ -1,5 +1,5 @@
 local stuff = require("stuff")
-local banks = stuff.str2numtable(io.input("06.txt"):read()); io.close()
+local banks = stuff.str2numtable(io.input("../__in/06.txt"):read()); io.close()
 
 local function redistribute(k)
     local bank = banks[k]; banks[k] = 0

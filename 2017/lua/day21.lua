@@ -37,8 +37,8 @@ local function iterate(image, rulebook, iterations)
     
 local function subst(char) if char == "#" then return "1" end return "0" end
 
-local rulebook, image = { {}, {}, {} }, {"010", "001", "111"} -- standard input {".#.", "..#", "###"} turned binary
-for line in io.lines("21.txt") do
+local rulebook, image, count = { {}, {}, {} }, {"010", "001", "111"} -- standard input {".#.", "..#", "###"} turned binary
+for line in io.lines("../__in/21.txt") do
     local str_in, str_out = string.match(string.gsub(line, "[.#]", subst), "([01/]+) => ([01/]+)")
     local out = {}; for item in string.gmatch(str_out, "([01]+)") do table.insert(out, item) end
     local t = {}
@@ -59,7 +59,7 @@ for line in io.lines("21.txt") do
     end
 end
 
-local image, count = iterate(image, rulebook, 5), 0
+image, count = iterate(image, rulebook, 5), 0
 for row = 1, #image do count = count + #string.gsub(image[row], "0", "") end
 print(string.format("Part 1: %d", count))
 

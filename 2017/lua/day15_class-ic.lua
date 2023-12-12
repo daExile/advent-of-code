@@ -20,7 +20,7 @@ A = Generator:new(16807)
 B = Generator:new(48271)
 
 starters = {}
-for line in io.lines("15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end
+for line in io.lines("../__in/15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end
 
 count1, count2 = 0, 0
 

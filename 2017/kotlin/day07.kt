@@ -23,7 +23,7 @@ class ProgramTower {
 
 fun main() {
     val t = ProgramTower()
-    for (entry in File("07.txt").readLines().map { it.split(" -> ") }) {
+    for (entry in File("../__in/07.txt").readLines().map { it.split(" -> ") }) {
         // input parse still terrible
         val name = entry[0].substringBefore(" ")
         val weight = entry[0].substringAfter("(").substringBefore(")").toInt()
@@ -35,5 +35,5 @@ fun main() {
     }
     
     println("Part 1: ${t.tower.keys.find {t.tower[it]!!.downLink == null }.also { t.findImbalance(it!!) }}")
-    println("Part 2: ${t.unbalanced} should have a weight of ${t.tower[t.unbalanced]!!.weight + t.delta}")
+    println("Part 2: ${t.tower[t.unbalanced]!!.weight + t.delta}")
 }

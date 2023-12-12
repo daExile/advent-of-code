@@ -1,6 +1,6 @@
 local stuff = require("stuff")
 
-local input = stuff.str2alnumchartable(io.open("01.txt", "r"):read())
+local input = stuff.str2alnumchartable(io.open("../__in/01.txt", "r"):read())
 local inputlen = #input
 
 local checksum1, checksum2 = 0, 0

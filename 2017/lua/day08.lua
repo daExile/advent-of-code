@@ -8,7 +8,7 @@ local ops = { ["<"] = function(r, n) return regs[r] < n end,
         ["=="] = function(r, n) return regs[r] == n end,
         ["!="] = function(r, n) return regs[r] ~= n end }
 
-for line in io.lines("08.txt") do
+for line in io.lines("../__in/08.txt") do
     local r1, sign, n1, r2, op, n2 = string.match(line, "(%w+) (%w+) (%-?%d+) if (%w+) ([!<>=]=?) (%-?%d+)")
     if sign == "dec" then n1 = -n1 end
     

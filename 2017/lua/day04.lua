@@ -6,7 +6,7 @@ local function strsort(str)
     return table.concat(t) end
 
 local c_valid1, c_valid2 = 0, 0, 0
-for line in io.lines("04.txt") do
+for line in io.lines("../__in/04.txt") do
     local t1, t2 = {}, {}
     local words = stuff.str2strtable(line)
   

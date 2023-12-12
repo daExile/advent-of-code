@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main() {
-    val input = File("17.txt").readText().toInt()
+    val input = File("../__in/17.txt").readText().toInt()
 
     val buffer = IntArray(2018)
     var pos = 0

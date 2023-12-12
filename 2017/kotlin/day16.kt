@@ -2,8 +2,8 @@ import java.io.File
 
 fun main() {
     var progs = mutableListOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p")
-    val dance = File("16.txt")
-        .readText().split(",")
+    val dance = File("../__in/16.txt")
+        .readText().trim().split(",")
         .map { listOf(it[0].toString()) + it.substring(1).split("/") }
 
     val log = mutableMapOf<Int, String>()

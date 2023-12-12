@@ -1,6 +1,6 @@
 # Advent of Code 2022
 ### 50:star:
-First time I took part in live event, and because of that I chose Python instead of trying something new, and also opted to reuse my old junk code ideas for some puzzles, a number of them took hours to give the answer. Could it be quicker to come up with better algorithms and debug them? Yeah. Anyway...
+First time I took part in live event, and because of that I chose Python instead of trying something new, and also opted to reuse my old junk code ideas for some puzzles, a few of them took hour+ to give the answer. Could it be quicker to come up with better algorithms and debug them? Yeah. Anyway...
 
 ## Results
 ```
@@ -31,5 +31,5 @@ Day       Time   Rank  Score       Time   Rank  Score
   3   00:09:35   2577      0   00:20:51   4036      0
   2   00:03:54    123      0   00:06:40    138      0
   1   00:03:14   1282      0   00:04:02    782      0
-  ```
-  Some days took a long time because of slow algorithms (Conway elves on day 23 or outright, unoptimised bruteforce for valves and elephants on day 16), others... Let's say that in absence of edge cases there still may be some bits (like duplicate folder names on day 7) that will cost you a hour of debug just because you made a wrong assumption about puzzle input and stuck to it :)
+```
+Some days took a long time because of slow algorithms (Conway elves on day 23 or outright, unoptimised bruteforce for valves and elephants on day 16), others... Let's say that in absence of edge cases there still may be some bits (like duplicate folder names on day 7) that will cost you a hour of debug just because you made a wrong assumption about puzzle input and stuck to it :)

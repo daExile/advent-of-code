@@ -15,7 +15,7 @@ local function jumparound(t, part2)
     return jumps end
 
 local run1, run2 = {}, {}
-for v in io.lines("05.txt") do
+for v in io.lines("../__in/05.txt") do
     table.insert(run1, tonumber(v))
     table.insert(run2, tonumber(v))
 end

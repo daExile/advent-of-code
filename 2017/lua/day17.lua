@@ -1,4 +1,4 @@
-local input = tonumber(io.open("17.txt", "r"):read())
+local input = tonumber(io.open("../__in/17.txt", "r"):read())
 
 local buffer, pos, current, target = {[0] = 0}, 0
 

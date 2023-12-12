@@ -27,7 +27,7 @@ class ThreadDuet(id: Long, val queueIn: ArrayDeque<Long>, val queueOut: ArrayDeq
 }
 
 fun main() {
-    val input = File("18.txt").readLines().map { it.split(" ") }
+    val input = File("../__in/18.txt").readLines().map { it.split(" ") }
     val queue0 = ArrayDeque<Long>(); val queue1 = ArrayDeque<Long>()
     val threads = listOf(Thread(), ThreadDuet(0, queue0, queue1), ThreadDuet(1, queue1, queue0))
     // run them all! p1 --^  p2 program "0" --^             p2 program "1" --^

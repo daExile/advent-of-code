@@ -1,6 +1,6 @@
 local stuff = require("stuff")
 
-local input = io.input("10.txt"):read(); io.close()
+local input = io.input("../__in/10.txt"):read(); io.close()
 
 local p1data = stuff.str2numtable(input)
 local p2data = {}

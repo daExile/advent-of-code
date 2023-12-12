@@ -10,7 +10,7 @@ fun findPairAndDivide(list: List<Int>): Int {
 }
 
 fun main() {
-    val input = File("02.txt").readLines()
+    val input = File("../__in/02.txt").readLines()
     
     var checksum1 = 0
     var checksum2 = 0

@@ -3,7 +3,7 @@ local function new(x, n) x = (x * n) % 2147483647; return x end
 local function new_mult(x, m, n) repeat x = new(x, n) until x % m == 0; return x end
 
 local starters = {}
-for line in io.lines("15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end
+for line in io.lines("../__in/15.txt") do table.insert(starters, tonumber(string.match(line, "(%d+)"))) end
 
 local count1, count2 = 0, 0
 
