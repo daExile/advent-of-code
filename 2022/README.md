@@ -1,5 +1,5 @@
 # Advent of Code 2022
-### 50:star:
+### 50 :star:
 First time I took part in live event, and because of that I chose Python instead of trying something new, and also opted to reuse my old junk code ideas for some puzzles, a few of them took hour+ to give the answer. Could it be quicker to come up with better algorithms and debug them? Yeah. Anyway...
 
 ## Results

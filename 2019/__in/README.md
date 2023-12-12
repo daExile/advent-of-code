@@ -1,0 +1,1 @@
+Puzzle inputs go here. Default name format: `DD.txt`

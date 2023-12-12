@@ -11,15 +11,15 @@ Mostly done for fun and learning, so-o probably a lot of it is various degree of
 - No serious input validity checks either, it works under assumption that a legit puzzle input is provided. Sometimes, there are more assumptions made about data structure of said input (that I would patch if I get to know that it causes certain valid inputs to explode).
 
 ## on Languages
-- 2015: 50:star:: Python
-- 2016: 50:star:: Python
-- 2017: 50:star:: Lua, 40:star:: Kotlin
-- 2018: :last_quarter_moon_with_face:
-- 2019: 8:star:: C++, Lua, Rust
-- 2020: 50:star:: Python
-- 2021: :last_quarter_moon_with_face:
-- 2022: 50:star:: Python
-- 2023: 24:star:: Lua
+- 2015: 50 :star: - Python
+- 2016: 50 :star: - Python
+- 2017: 50 :star: - Lua / 40 :star: - Kotlin
+- 2018: ...
+- 2019: 8 :star: - C++, Lua, Rust
+- 2020: 50 :star: - Python
+- 2021: ...
+- 2022: 50 :star: - Python
+- 2023: 24 :star: - Lua
 
 ## on Other Stuff
 Check the AoC out -> https://adventofcode.com

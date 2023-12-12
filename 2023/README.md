@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 24:star:
+### 24 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.

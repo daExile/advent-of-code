@@ -1,5 +1,5 @@
 # Advent of Code 2019
-### 8:star:
+### 8 :star:
 Launguages used for the playthrough this time:
 - **Lua**: 5.1, as something "known well enough"
 - **C++**: 2020 edition, absolutely arbitrary choice for a trip down memory lane (don't expect much, haha, my prior experience dates back to pre-modern builds, I might not even use any C++20 features in the end :)

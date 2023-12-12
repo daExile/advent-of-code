@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2017 
-### 50:star:
+### 50 :star:
 Being done in Lua and Kotlin in parallel, learning the former from scratch and learning more of / practicing the latter. Plus, they have a nice contrast in amount of built-in features.
 
 Odd days are solved in Kotlin first, even - in Lua first. Naturally I started day 1 with Kotlin as something I was already familiar with to some degree, and decided to swap languages over for every puzzle.
