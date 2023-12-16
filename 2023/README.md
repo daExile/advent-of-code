@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 30 :star:
+### 32 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -24,3 +24,4 @@ Not marked with `_live`, because technically it isn't - I cut some corners in pa
 Part 1 was done at first by comparing strings directly. Then part 2 arrived and asked us to evaluate the degree of difference between "reflections", it was refactored into per-tile comparison. One could optimise it by cutting short all checks that have more than 1 tile difference, but with maps Eric supplied for this puzzle it finishes in milliseconds "as is".
 ## Day 14 - [Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
 ## Day 15 - [Lens Library](https://adventofcode.com/2023/day/15)
+## Day 16 - [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
