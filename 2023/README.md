@@ -27,3 +27,7 @@ Part 1 was done at first by comparing strings directly. Then part 2 arrived and 
 ## Day 16 - [The Floor Will Be Lava](https://adventofcode.com/2023/day/16)
 ## Day 17 - [Clumsy Crucible](https://adventofcode.com/2023/day/17)
 Alright, this was a bumpy road, and the final result is pretty sketchy, too. Takes about 15 min to solve on my machine and might explode, you are warned. It does, however, give correct answers for my input and main example grid (both parts) and special part 2 example (p2, p1 explodes :), so I called it a day.
+## Day 18 - [Lavaduct Lagoon](https://adventofcode.com/2023/day/18)
+A tribute to wasted time, haha - I bruteforced part 1 (by making a 2D table of boundaries and flood-filling it) for starters, and then part 2 called for a different approach. And then I wasted more time by trying to come up with some algorithm before doing research. So all I got was a t- ...ext file with part 1 dig plan printout.
+
+Anyway, it now uses a combination of [shoelace](https://en.wikipedia.org/wiki/Shoelace_formula) and [Pick's](https://en.wikipedia.org/wiki/Pick%27s_theorem) formulae to find area and then extract number of points inside the loop using known area and perimeter. Yay.
