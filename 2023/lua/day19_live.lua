@@ -79,4 +79,4 @@ local function process_ranges(ranges, work)
             else process_ranges(ranges, step[4]) end end end end
 
 process_ranges({["x"] = {1, 4000}, ["m"] = {1, 4000}, ["a"] = {1, 4000}, ["s"] = {1, 4000}})
-print(string.format("Part 2: %d", sum2))
+print(string.format("Part 2: %.0f", sum2))
