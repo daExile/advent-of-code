@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 34 :star:
+### 38 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -31,3 +31,4 @@ Alright, this was a bumpy road, and the final result is pretty sketchy, too. Tak
 A tribute to wasted time, haha - I bruteforced part 1 (by making a 2D table of boundaries and flood-filling it) for starters, and then part 2 called for a different approach. And then I wasted more time by trying to come up with some algorithm before doing research. So all I got was a t- ...ext file with part 1 dig plan printout.
 
 Anyway, it now uses a combination of [shoelace](https://en.wikipedia.org/wiki/Shoelace_formula) and [Pick's](https://en.wikipedia.org/wiki/Pick%27s_theorem) formulae to find area and then extract number of points inside the loop using known area and perimeter. Yay.
+## Day 19 - [Aplenty](https://adventofcode.com/2023/day/19)

@@ -19,7 +19,7 @@ for line in io.lines("../__in/18.txt") do
     local p3_1, p3_2 = string.match(p3, "([%da-f]+)([%da-f])")
     local x2, d2 = tonumber(p3_1, 16), tonumber(p3_2)
     table.insert(poly2, {poly2[#poly2][1] + x2 * dirs[d2][1], poly2[#poly2][2] + x2 * dirs[d2][2]})
-    end
+end
 
 print(string.format("Part 1: %d", picks_shoelace_huehue(poly1)))
 print(string.format("Part 2: %.0f", picks_shoelace_huehue(poly2)))
