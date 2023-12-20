@@ -11,7 +11,7 @@ for line in io.lines("../__in/20.txt") do
     end
 end
 
--- part 2 dumb hack, assuming [n conjunction modules -> 1 conjunction module -> rx] structure is always true
+-- part 2 dumb hack, assuming "n conj modules -> 1 conj module -> rx" structure is always true, and it loops nicely
 local rx_ins, rx_low = {}, 0
 for k, _ in pairs(modules["rx"][3]) do
     for k2, _ in pairs(modules[k][3]) do rx_ins[k2] = 0 end end
@@ -25,15 +25,12 @@ local function push_the_button(x)
     for _, id_out in ipairs(modules["broadcaster"][2]) do table.insert(queue, {id_out, "broadcaster", 0}) end
     
     while #queue > 0 do
-        local id, id_in, pulse = table.unpack(table.remove(queue, 1)) --; print("deq", id, id_in, pulse)
+        local id, id_in, pulse = table.unpack(table.remove(queue, 1))
         pulses[pulse] = pulses[pulse] + 1
         
         if modules[id][1] == "%" and pulse == 0 then
             modules[id][4] = (modules[id][4] + 1) % 2
-            for _, id_out in ipairs(modules[id][2]) do
-                table.insert(queue, {id_out, id, modules[id][4]})
-                --print(id, "->", modules[id][4], "->", id_out)
-            end
+            for _, id_out in ipairs(modules[id][2]) do table.insert(queue, {id_out, id, modules[id][4]}) end
         elseif modules[id][1] == "&" then
             modules[id][3][id_in] = pulse
             
@@ -48,12 +45,11 @@ local function push_the_button(x)
             end
             for _, id_out in ipairs(modules[id][2]) do
                 table.insert(queue, {id_out, id, send})
-                --print(id, "->", send, "->", id_out)
             end
         end
     end
     
-    rx_low = 1; for k, v in pairs(rx_ins) do rx_low = rx_low * v end
+    rx_low = 1; for k, v in pairs(rx_ins) do rx_low = rx_low * v end -- last bit of part 2 dumb hack
 end
 
 local x = 0
