@@ -12,8 +12,8 @@ local function nearby_numbers(row, col, part)
         local lastnum
         for j = col - 1, col + 1 do
             if tonumber(grid[i][j]) then
-                x = get_number(i, j)
-                if not lastnum then sum = sum + x; count = count + 1; ratio = ratio * x; lastnum = x end
+                if not lastnum then
+                    local x = get_number(i, j); sum, count, ratio, lastnum = sum + x, count + 1, ratio * x, x end
             else lastnum = nil end
         end
     end
