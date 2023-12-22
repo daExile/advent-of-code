@@ -57,5 +57,5 @@ for step = 66, 26501365, 131 do
 for step = 132, 26501365, 131 do
     local x = steps - step + 1; n = n + 1
     count_p2 = count_p2 + (plot_count(1, 1, x) + plot_count(1, -1, x) + plot_count(-1, 1, x) + plot_count(-1, -1, x)) * n end
-        
+
 print(string.format("Part 2: %.0f", count_p2))

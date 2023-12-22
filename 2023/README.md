@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 42 :star:
+### 44 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -36,3 +36,4 @@ Anyway, it now uses a combination of [shoelace](https://en.wikipedia.org/wiki/Sh
 Letting the thing run for part 2, hoping that it will just magically arrive to the answer, was a mistake, as usual. Enter the Haunted Wasteland-like loop size search to save the day half an hour later.
 ## Day 21 - [Step Counter](https://adventofcode.com/2023/day/21)
 Working with some input details again, shortcutting it with the assumption that all inputs have edges of the map and cardinal directions from starting point empty, and that our elf would only ever enter adjacent map tile from the corner or edge center. Plus some sketchy-looking loop math that I certainly did not expect to work on the first try.
+## Day 22 - [Sand Slabs](https://adventofcode.com/2023/day/22)
