@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 44 :star:
+### 46 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -37,3 +37,7 @@ Letting the thing run for part 2, hoping that it will just magically arrive to t
 ## Day 21 - [Step Counter](https://adventofcode.com/2023/day/21)
 Working with some input details again, shortcutting it with the assumption that all inputs have edges of the map and cardinal directions from starting point empty, and that our elf would only ever enter adjacent map tile from the corner or edge center. Plus some sketchy-looking loop math that I certainly did not expect to work on the first try.
 ## Day 22 - [Sand Slabs](https://adventofcode.com/2023/day/22)
+## Day 23 - [A Long Walk](https://adventofcode.com/2023/day/23)
+Part 1 was solved just fine with Dijkstra-like pathfinder. Part 2 was running out of memory allowed for Lua with that approach. I moved on to a "proper" graph structure that takes only forks into account as nodes, and a BFS, but it kept running out of memory, still. Very likely my pruning approach was far from effective. but... Anyway, some hours later I decided to try DFS instead, and it solved the thing not only without any bloody out-of-memory errors, but it also took a lot less time than BFS solver lasted before exploding.
+
+Absolute disaster with a sudden happy end (4s+ runtime still leaves something to be desired, though).
