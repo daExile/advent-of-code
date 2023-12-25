@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 46 :star:
+### 48 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -41,3 +41,9 @@ Working with some input details again, shortcutting it with the assumption that 
 Part 1 was solved just fine with Dijkstra-like pathfinder. Part 2 was running out of memory allowed for Lua with that approach. I moved on to a "proper" graph structure that takes only forks into account as nodes, and a BFS, but it kept running out of memory, still. Very likely my pruning approach was far from effective. but... Anyway, some hours later I decided to try DFS instead, and it solved the thing not only without any bloody out-of-memory errors, but it also took a lot less time than BFS solver lasted before exploding.
 
 Absolute disaster with a sudden happy end (4s+ runtime still leaves something to be desired, though).
+## Day 24 - [Never Tell Me The Odds](https://adventofcode.com/2023/day/24)
+Part 2 isn't defeated yet, as I decided against using external stuff to solve it, and yet to implement my own solver in Lua. Soon!
+## Day 25 - [Snowverload](https://adventofcode.com/2023/day/25)
+Again not marked with `_live` for the same reason as day 08 - I got the answer early by plugging certain numbers into graph floodfill code, before automating the process.
+
+It works under assumtion that nodes that are "almost certainly" the ones we need to delete are those that have the highest possible replacement cost in terms of `how many steps it takes to reach node B from node A if the edge between is removed`. The code finds costs for all edges, groups them together and fills the list to check, taking entire lists of highest cost available until the list has 3 or more items. Well, both example and my puzzle input happen to end up with 3 items exactly. The assumption seems kinda safe to make because there clearly are some outlier edges with costs much higher than anything else (in puzzle input, example has only costs of 2, 3 or 4). If it doesn't work for some input, let me know :)
