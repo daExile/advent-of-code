@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2023
-### 48 :star:
+### 50 :star:
 Live event being done in Lua 5.1 (which I sort of regret now - I like lightweight Lua on its own, but having to do all the extra work to write library functions kind of shows when you're on timer. Oh well :)
 
 Just some notes and no detailed walkthroughs until later.
@@ -15,7 +15,6 @@ Fair warning, live solution just naively bruteforces part 2 (takes about 17 min 
 This one is also a straight bruteforce. Again, I wanted to solve it with math but kinda got lost in which values exactly I should pass to the quadratic formula :) Also, it solves the puzzle in some milliseconds "as is" (with LuaJIT help, but still).
 ## Day 07 - [Camel Cards](https://adventofcode.com/2023/day/7)
 ## Day 08 - [Haunted Wasteland](https://adventofcode.com/2023/day/8)
-Not marked with `_live`, because technically it isn't - I cut some corners in part 2, manually putting in some parameters to find loop sizes, test if each starting point may lead to different exits or not, et cetera, and then doing math by hand to get the answer (you can see some remnants of that in the code). The solution that gives answer on its own was only implemented after sending the answer in and getting the shiny :D
 ## Day 09 - [Mirage Maintenance](https://adventofcode.com/2023/day/9)
 ## Day 10 - [Pipe Maze](https://adventofcode.com/2023/day/10)
 ## Day 11 - [Cosmic Expansion](https://adventofcode.com/2023/day/11)
@@ -42,8 +41,6 @@ Part 1 was solved just fine with Dijkstra-like pathfinder. Part 2 was running ou
 
 Absolute disaster with a sudden happy end (4s+ runtime still leaves something to be desired, though).
 ## Day 24 - [Never Tell Me The Odds](https://adventofcode.com/2023/day/24)
-Part 2 isn't defeated yet, as I decided against using external stuff to solve it, and yet to implement my own solver in Lua. Soon!
+Took some time to wrap my head around the matrix math involved and then code it. I also tried to avoid rounding issues by implementing fractions, which worked for example, but actually caused more rounding errors for the real input (off by 2 for a 15-digit answer, dammit), so I had to quickly undo it all and convert the code into "just your regular floating point math" which produced correct answer.
 ## Day 25 - [Snowverload](https://adventofcode.com/2023/day/25)
-Again not marked with `_live` for the same reason as day 08 - I got the answer early by plugging certain numbers into graph floodfill code, before automating the process.
-
-It works under assumtion that nodes that are "almost certainly" the ones we need to delete are those that have the highest possible replacement cost in terms of `how many steps it takes to reach node B from node A if the edge between is removed`. The code finds costs for all edges, groups them together and fills the list to check, taking entire lists of highest cost available until the list has 3 or more items. Well, both example and my puzzle input happen to end up with 3 items exactly. The assumption seems kinda safe to make because there clearly are some outlier edges with costs much higher than anything else (in puzzle input, example has only costs of 2, 3 or 4). If it doesn't work for some input, let me know :)
+It works under assumption that nodes that are "almost certainly" the ones we need to delete are those that have the highest possible replacement cost in terms of `how many steps it takes to reach node B from node A if the edge between is removed`. The code finds costs for all edges, groups them together and fills the list to check, taking entire lists of highest cost available until the list has 3 or more items. Well, both example and my puzzle input happen to end up with 3 items exactly. The assumption is generous but seems kinda safe to make because there clearly are some outlier edges with costs much higher than anything else (in puzzle input, example has only costs of 2, 3 or 4). If it doesn't work for some input, let me know :)
