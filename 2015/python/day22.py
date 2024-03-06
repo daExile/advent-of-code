@@ -53,10 +53,6 @@ def turn(player = (50, 500), boss = (hp_b, dmg_b), effects = {}, total = 0, m_mi
                 continue
 
         #boss turn
-        if hard:
-            hp_p -= 1
-            if hp_p <= 0: continue
-            
         e_bt = {}
         def_p = 7 if "Shield" in e_pt else 0
         if "Poison" in e_pt: hp_b -= 3

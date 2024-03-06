@@ -6,8 +6,12 @@ Just some notes and no detailed walkthroughs until later.
 ## Day 01 - [Trebuchet?!](https://adventofcode.com/2023/day/1)
 ## Day 02 - [Cube Conundrum](https://adventofcode.com/2023/day/2)
 The code honestly parses each roll separately, as I assumed it's gonna be important in part 2, and when it wasn't, I left it as is anyway.
+
+Update: no grouping by roll anymore.
 ## Day 03 - [Gear Ratios](https://adventofcode.com/2023/day/3)
 Current solution uses a silly assumption that parts can't have the same number twice in a row, or something like that. It isn't a big deal to fix but it worked for my input, so I just didn't :P
+
+Update: should work for any numbers now (I made it remember if it read any number on the last step, and forget it if current tile isn't a digit, or we moved to the next line).
 ## Day 04 - [Scratchcards](https://adventofcode.com/2023/day/4)
 ## Day 05 - [If You Give A Seed A Fertilizer](https://adventofcode.com/2023/day/5)
 Fair warning, live solution just naively bruteforces part 2 (takes about 17 min w/LuaJIT on my rather old machine). I tried to make faster one while this code was running, and failed twice - the program finished faster, and the idea was bad, as second version added way too much overhead which killed all its potential benefits lol. Yep, I scrapped it and will make a better one with ranges later.
