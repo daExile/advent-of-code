@@ -1,5 +1,5 @@
 # Advent of Code
-## Hobby coder's journey to all stars { :star: : 308/450 }
+## Hobby coder's journey to all stars { :star: : 314/450 }
 Might contain trace amounts of decent code (no promises).
 
 Mostly done for fun and learning, so-o probably a lot of it is various degree of terrible and non-idiomatic. Especially earlier Python solutions (expect some silly bruteforce and cellular automata done using dictionaries). It should work, however, and stands a chance to be improved :)
@@ -20,6 +20,7 @@ Mostly done for fun and learning, so-o probably a lot of it is various degree of
 - 2021: ...
 - 2022: 50 :star: - Python
 - 2023: 50 :star: - Lua
+- 2024: 6 :star: - Lua
 
 ## on Other Stuff
 Check the AoC out -> https://adventofcode.com
