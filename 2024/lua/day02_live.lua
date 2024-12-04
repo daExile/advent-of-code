@@ -1,6 +1,6 @@
-local function drop_nth(report, nth)
+local function drop_nth(report, n)
     local t = {}
-    for i, v in ipairs(report) do if i ~= nth then table.insert(t, v) end end
+    for i, v in ipairs(report) do if i ~= n then table.insert(t, v) end end
     
     return t
 end
