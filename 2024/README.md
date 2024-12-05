@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 8 :star:
+### 10 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -13,3 +13,5 @@ For part 1, only reports with `bad_gaps` length of `0` are considered safe. For 
 ## Day 03 - [Mull It Over](https://adventofcode.com/2024/day/3)
 Messy regex, because you don't have alternates in Lua. I also forgot to add a check for empty arguments in `do()` / `don't()`, but it worked fine without it, so... let me know if it explodes with some inputs.
 ## Day 04 - [Ceres Search](https://adventofcode.com/2024/day/4)
+## Day 05 - [Print Queue](https://adventofcode.com/2024/day/5)
+Only the pairwise ordering lookup table due to loops lurking in the rules. On the bright side, we're provided with complete pair ordering data, so no deductions were required.
