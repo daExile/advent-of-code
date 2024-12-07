@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 10 :star:
+### 14 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -15,3 +15,6 @@ Messy regex, because you don't have alternates in Lua. I also forgot to add a ch
 ## Day 04 - [Ceres Search](https://adventofcode.com/2024/day/4)
 ## Day 05 - [Print Queue](https://adventofcode.com/2024/day/5)
 Only the pairwise ordering lookup table due to loops lurking in the rules. On the bright side, we're provided with complete pair ordering data, so no deductions were required.
+## Day 06 - [Guard Gallivant](https://adventofcode.com/2024/day/6)
+Current code is sort of a naive bruteforce for part 2, just tries to put obstacle on each tile of the traced in part 1 path and checks if it loops. A fallback from another, supposedly faster approach, that I've put on hold due to a lot of false positives and debugging difficulties without a working solution to compare to. Though the naive one isn't terribly slow, either, ~2.7s on my ancient machine.
+## Day 07 - [Bridge Repair](https://adventofcode.com/2024/day/7)
