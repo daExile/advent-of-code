@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 14 :star:
+### 18 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -18,3 +18,5 @@ Only the pairwise ordering lookup table due to loops lurking in the rules. On th
 ## Day 06 - [Guard Gallivant](https://adventofcode.com/2024/day/6)
 Current code is sort of a naive bruteforce for part 2, just tries to put obstacle on each tile of the traced in part 1 path and checks if it loops. A fallback from another, supposedly faster approach, that I've put on hold due to a lot of false positives and debugging difficulties without a working solution to compare to. Though the naive one isn't terribly slow, either, ~2.7s on my ancient machine.
 ## Day 07 - [Bridge Repair](https://adventofcode.com/2024/day/7)
+## Day 08 - [Resonant Collinearity](https://adventofcode.com/2024/day/8)
+## Day 09 - [Disk Fragmenter](https://adventofcode.com/2024/day/9)
