@@ -1,5 +1,5 @@
 local p1_block_map = {}
-local p2_file_map, p2_empty_map = {}, {}
+local p2_file_map, p2_empty_map = {}, {{}, {}, {}, {}, {}, {}, {}, {}, {}}
 
 local ptr, file_id = 0
 for file, empty in io.open("../__in/09.txt"):read():gmatch("(%d)(%d?)") do
@@ -38,7 +38,7 @@ for i = file_id, 0, -1 do
     -- look for leftmost gap to fit this file
     local gap, gap_size
     for l = len, 9 do
-        if p2_empty_map[l] and #p2_empty_map[l] > 0 then
+        if #p2_empty_map[l] > 0 then
             if not gap or gap > p2_empty_map[l][1] then gap, gap_size = p2_empty_map[l][1], l end
         end
     end
