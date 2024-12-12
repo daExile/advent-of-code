@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 18 :star:
+### 24 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -20,3 +20,9 @@ Current code is sort of a naive bruteforce for part 2, just tries to put obstacl
 ## Day 07 - [Bridge Repair](https://adventofcode.com/2024/day/7)
 ## Day 08 - [Resonant Collinearity](https://adventofcode.com/2024/day/8)
 ## Day 09 - [Disk Fragmenter](https://adventofcode.com/2024/day/9)
+## Day 10 - [Hoof It](https://adventofcode.com/2024/day/10)
+## Day 11 - [Plutonian Pebbles](https://adventofcode.com/2024/day/11)
+## Day 12 - [Garden Groups](https://adventofcode.com/2024/day/12)
+Part 1 is a map walk: start on an unvisited yet tile and check its neighbours, adding `1` to `area` for each adjacent tile with the same plant and marking it as visited, too; adding `1` to `perimeter` where adjacent tile is different (or doesn't exist = map edge), until a region is charted. Repeat until entire map is done.
+
+For part 2, fence segments data was collected into a table, grouping by `direction` first and `lane` second (row or column, depending on direction), making a list of fence segment positions on a given lane (the other coordinate). Lists are then sorted and `sides` counted as `1 + number of continuity breaks`.
