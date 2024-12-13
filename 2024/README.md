@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 24 :star:
+### 26 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -26,3 +26,16 @@ Current code is sort of a naive bruteforce for part 2, just tries to put obstacl
 Part 1 is a map walk: start on an unvisited yet tile and check its neighbours, adding `1` to `area` for each adjacent tile with the same plant and marking it as visited, too; adding `1` to `perimeter` where adjacent tile is different (or doesn't exist = map edge), until a region is charted. Repeat until entire map is done.
 
 For part 2, fence segments data was collected into a table, grouping by `direction` first and `lane` second (row or column, depending on direction), making a list of fence segment positions on a given lane (the other coordinate). Lists are then sorted and `sides` counted as `1 + number of continuity breaks`.
+## Day 13 - [Claw Contraption](https://adventofcode.com/2024/day/13)
+This day's problem easily translates into a system of two equations for each machine, which I decided to solve algebraically.
+```
+X = a * aX + b * bX
+Y = a * aY + b * bY
+```
+Skipping all the derivation blah, we get:
+```
+     bY * X - bX * Y       Y - aY * a
+a = -----------------; b = ----------
+    bY * aX - bX * aY          bY
+```
+...after that it's just parse inputs and plug the numbers in, check if values for `a` and `b` are integers. I was concerned about potential gotchas, like `a` being a multiple of `b`, but decided not to deal with it until it happens, and in the end it didn't.
