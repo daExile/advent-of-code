@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 26 :star:
+### 30 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -39,3 +39,5 @@ a = -----------------; b = ----------
     bY * aX - bX * aY          bY
 ```
 ...after that it's just parse inputs and plug the numbers in, check if values for `a` and `b` are integers. I was concerned about potential gotchas, like `a` being a multiple of `b`, but decided not to deal with it until it happens, and in the end it didn't.
+## Day 14 - [Restroom Redoubt](https://adventofcode.com/2024/day/14)
+## Day 15 - [Warehouse Woes](https://adventofcode.com/2024/day/15)

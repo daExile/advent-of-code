@@ -1,5 +1,5 @@
 local input = io.open("../__in/13.txt", "r"):read("*a")
-local arcade_pattern = ".-A: X%+(%d+), Y%+(%d+).-B: X%+(%d+), Y%+(%d+).-Prize: X=(%d+), Y=(%d+)"
+local claw_machine_pattern = ".-A: X%+(%d+), Y%+(%d+).-B: X%+(%d+), Y%+(%d+).-Prize: X=(%d+), Y=(%d+)"
 
 local function tokens_to_win(aX, aY, bX, bY, X, Y)
     local a_num, a_den = bY * X - bX * Y, bY * aX - bX * aY
@@ -13,7 +13,7 @@ local function tokens_to_win(aX, aY, bX, bY, X, Y)
 end
 
 local tokens1, tokens2 = 0, 0
-for aX, aY, bX, bY, X, Y in input.gmatch(input, arcade_pattern) do
+for aX, aY, bX, bY, X, Y in input.gmatch(input, claw_machine_pattern) do
     tokens1 = tokens1 + tokens_to_win(aX, aY, bX, bY, X, Y)
     tokens2 = tokens2 + tokens_to_win(aX, aY, bX, bY, 10000000000000 + X, 10000000000000 + Y)
 end
