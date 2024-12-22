@@ -1,5 +1,5 @@
 ﻿# Advent of Code 2024
-### 30 :star:
+### 40 :star:
 Going for it in Lua 5.1 again, for now.
 
 Links to puzzles and maybe some notes:
@@ -41,3 +41,13 @@ a = -----------------; b = ----------
 ...after that it's just parse inputs and plug the numbers in, check if values for `a` and `b` are integers. I was concerned about potential gotchas, like `a` being a multiple of `b`, but decided not to deal with it until it happens, and in the end it didn't.
 ## Day 14 - [Restroom Redoubt](https://adventofcode.com/2024/day/14)
 ## Day 15 - [Warehouse Woes](https://adventofcode.com/2024/day/15)
+## Day 16 - Reindeer Maze
+...still lost in the maze (and laze)
+## Day 17 - [Chronospatial Computer](https://adventofcode.com/2024/day/17)
+## Day 18 - [RAM Run](https://adventofcode.com/2024/day/18)
+Needs some work to stop being dumb bruteforce from `1024` to `until there's no path anymore`.
+## Day 19 - [Linen Layout](https://adventofcode.com/2024/day/19)
+## Day 20 - [Race Condition](https://adventofcode.com/2024/day/20)
+## Day 21 - Keypad Conundrum
+...these robots must be a but rusty
+## Day 22 - [Monkey Market](https://adventofcode.com/2024/day/22)
